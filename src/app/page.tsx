@@ -24,12 +24,12 @@ export default function Home() {
         <Image
           priority
           fill
-          src="/hero/poster.png"
+          src="/hero/poster2.png"
           alt="Description"
           className="rounded-2xl object-cover opacity-90"
         />
 
-        <div className="absolute right-10 bottom-10 flex flex-col gap-8 text-end text-white">
+        <div className="absolute inset-x-0 bottom-0 flex flex-col gap-8 rounded-b-xl bg-black/40 pt-5 pr-10 pb-10 text-end text-white">
           <h3 className="text-4xl font-semibold">
             Transforming Ideas Into <br />
             Stunning Designs

@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.variable} mx-auto max-w-[1200px] antialiased`}
+        className={`${poppins.variable} mx-auto max-w-[1100px] antialiased`}
       >
         <Header />
         {children}

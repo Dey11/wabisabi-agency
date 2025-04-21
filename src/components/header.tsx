@@ -17,7 +17,7 @@ export default function Header() {
       </div>
 
       <nav className="mt-4">
-        <ul className="flex items-center gap-10 text-3xl">
+        <ul className="flex items-center gap-10 text-2xl">
           {navItems.map((item) => (
             <li key={item.name}>
               <a href={item.href} className="text-gray-700 hover:text-gray-900">
@@ -26,15 +26,15 @@ export default function Header() {
             </li>
           ))}
           <div className="flex items-center gap-2">
-            <button className="flex items-center gap-1 rounded-full border-2 px-4 py-1 text-2xl">
+            <button className="flex items-center gap-1 rounded-full border-2 px-4 py-1 text-xl">
               <span>Purchase Plan</span>
               <ArrowUp className="size-5 rotate-45" />
             </button>
             <button className="rounded-full border-2 p-2">
-              <User className="size-6" />
+              <User className="size-5" />
             </button>
             <button className="rounded-full border-2 p-2">
-              <Moon className="size-6" />
+              <Moon className="size-5" />
             </button>
           </div>
         </ul>
