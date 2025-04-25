@@ -54,6 +54,6 @@ const navItems = [
   },
   {
     name: "Feedbacks",
-    href: "/services",
+    href: "/feedbacks",
   },
 ];
