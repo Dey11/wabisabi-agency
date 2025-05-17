@@ -3,17 +3,79 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { MoveUpRight } from "lucide-react";
+import {
+  BANNERS,
+  LOGOS,
+  VIP_PACKS,
+  DISCORD_HEADERS,
+  DISCORD_EMOTES,
+} from "@/lib/constants";
 
 type ServiceType = {
-  type: "logo" | "banner" | "vip" | "header";
+  type: "logo" | "banner" | "vip" | "header" | "emote";
 };
 
 export default function ServicesPage() {
   const [currIdx, setCurrIdx] = useState(0);
-  const [currService, setCurrService] = useState<ServiceType["type"]>("logo");
+  const [currService, setCurrService] = useState<ServiceType["type"]>("banner");
+
+  function getCurrentPosters() {
+    switch (currService) {
+      case "banner":
+        return BANNERS.map((banner) => ({
+          id: banner.id,
+          src: banner.image,
+          title: banner.alt,
+          type: "Banner",
+          description: "Premium quality banner design",
+        }));
+      case "logo":
+        return LOGOS.map((logo) => ({
+          id: logo.id,
+          src: logo.image,
+          title: logo.alt,
+          type: "Logo",
+          description: "Professional logo design",
+        }));
+      case "vip":
+        return VIP_PACKS.map((vip) => ({
+          id: vip.id,
+          src: vip.image,
+          title: vip.alt,
+          type: "VIP Pack",
+          description: "Complete VIP branding package",
+        }));
+      case "header":
+        return DISCORD_HEADERS.map((header) => ({
+          id: header.id,
+          src: header.image,
+          title: header.alt,
+          type: "Header",
+          description: "Custom Discord header design",
+        }));
+      case "emote":
+        return DISCORD_EMOTES.map((emote) => ({
+          id: emote.id,
+          src: emote.image,
+          title: emote.alt,
+          type: "Emote",
+          description: "Unique Discord emote design",
+        }));
+      default:
+        return VIP_PACKS.map((vip) => ({
+          id: vip.id,
+          src: vip.image,
+          title: vip.alt,
+          type: "VIP Pack",
+          description: "Complete VIP branding package",
+        }));
+    }
+  }
+
+  const currentPosters = getCurrentPosters();
 
   function handleNext() {
-    setCurrIdx((prev) => Math.min(prev + 1, posters.length - 1));
+    setCurrIdx((prev) => Math.min(prev + 1, currentPosters.length - 1));
   }
 
   function handlePrev() {
@@ -53,14 +115,18 @@ export default function ServicesPage() {
       <div className="text-secondary-foreground col-span-12 flex flex-col overflow-clip p-10">
         <div className="mb-5 flex items-center gap-3">
           {services.map((service, idx) => {
+            const serviceType = service
+              .toLowerCase()
+              .replace(" ", "") as ServiceType["type"];
             return (
               <button
                 key={idx}
-                onClick={() =>
-                  setCurrService(service.toLowerCase() as ServiceType["type"])
-                }
+                onClick={() => {
+                  setCurrService(serviceType);
+                  setCurrIdx(0);
+                }}
                 className={`rounded-md px-4 py-1 text-xl transition-colors ${
-                  currService === service.toLowerCase()
+                  currService === serviceType
                     ? "bg-[#CA207833] text-[#CA2078] hover:bg-[#CA207833]/70"
                     : "bg-[#C7C7C7] hover:bg-[#c7c7c7]/70"
                 }`}
@@ -75,10 +141,10 @@ export default function ServicesPage() {
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
           className="flex items-center gap-5 rounded-3xl"
         >
-          {posters.map((poster, idx) => {
-            return (
+          {currentPosters.length > 0 ? (
+            currentPosters.map((poster) => (
               <div
-                className={`transition-mask relative aspect-square h-[60dvh] rounded-3xl bg-cover bg-center`}
+                className="relative aspect-square h-[60dvh] rounded-3xl bg-cover bg-center"
                 style={{
                   backgroundImage: `url(${poster.src})`,
                 }}
@@ -95,57 +161,16 @@ export default function ServicesPage() {
                   </div>
                 </div>
               </div>
-            );
-          })}
+            ))
+          ) : (
+            <div className="flex h-[60dvh] items-center justify-center">
+              <p>No images available for this service</p>
+            </div>
+          )}
         </motion.div>
       </div>
     </div>
   );
 }
 
-const services = ["Banner", "Logo", "VIP Packs", "Header"];
-
-const posters = [
-  {
-    id: 1,
-    src: "/hero/poster.png",
-    title: "Punisher",
-    type: "Mascot Logo",
-    description: "Created by Rudraksh Roy with Adobe Illustrator",
-  },
-  {
-    id: 2,
-    src: "/hero/poster2.png",
-    title: "Punisher",
-    type: "Mascot Logo",
-    description: "Created by Rudraksh Roy with Adobe Illustrator",
-  },
-  {
-    id: 3,
-    src: "/hero/poster3.png",
-    title: "Punisher",
-    type: "Mascot Logo",
-    description: "Created by Rudraksh Roy with Adobe Illustrator",
-  },
-  {
-    id: 4,
-    src: "/hero/poster4.png",
-    title: "Punisher",
-    type: "Mascot Logo",
-    description: "Created by Rudraksh Roy with Adobe Illustrator",
-  },
-  {
-    id: 5,
-    src: "/hero/poster5.png",
-    title: "Punisher",
-    type: "Mascot Logo",
-    description: "Created by Rudraksh Roy with Adobe Illustrator",
-  },
-  {
-    id: 6,
-    src: "/hero/poster6.png",
-    title: "Punisher",
-    type: "Mascot Logo",
-    description: "Created by Rudraksh Roy with Adobe Illustrator",
-  },
-];
+const services = ["Banner", "Logo", "VIP Packs", "Header", "Emote"];
