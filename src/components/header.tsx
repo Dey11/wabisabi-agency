@@ -50,7 +50,7 @@ const navItems = [
   },
   {
     name: "Works",
-    href: "/about",
+    href: "/works",
   },
   {
     name: "Feedbacks",

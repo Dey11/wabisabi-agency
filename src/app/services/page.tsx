@@ -3,76 +3,13 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { MoveUpRight } from "lucide-react";
-import {
-  BANNERS,
-  LOGOS,
-  VIP_PACKS,
-  DISCORD_HEADERS,
-  DISCORD_EMOTES,
-} from "@/lib/constants";
-
-type ServiceType = {
-  type: "logo" | "banner" | "vip" | "header" | "emote";
-};
+import { getCurrentPosters, ServiceType, services } from "@/lib/utils";
 
 export default function ServicesPage() {
   const [currIdx, setCurrIdx] = useState(0);
   const [currService, setCurrService] = useState<ServiceType["type"]>("banner");
 
-  function getCurrentPosters() {
-    switch (currService) {
-      case "banner":
-        return BANNERS.map((banner) => ({
-          id: banner.id,
-          src: banner.image,
-          title: banner.alt,
-          type: "Banner",
-          description: "Premium quality banner design",
-        }));
-      case "logo":
-        return LOGOS.map((logo) => ({
-          id: logo.id,
-          src: logo.image,
-          title: logo.alt,
-          type: "Logo",
-          description: "Professional logo design",
-        }));
-      case "vip":
-        return VIP_PACKS.map((vip) => ({
-          id: vip.id,
-          src: vip.image,
-          title: vip.alt,
-          type: "VIP Pack",
-          description: "Complete VIP branding package",
-        }));
-      case "header":
-        return DISCORD_HEADERS.map((header) => ({
-          id: header.id,
-          src: header.image,
-          title: header.alt,
-          type: "Header",
-          description: "Custom Discord header design",
-        }));
-      case "emote":
-        return DISCORD_EMOTES.map((emote) => ({
-          id: emote.id,
-          src: emote.image,
-          title: emote.alt,
-          type: "Emote",
-          description: "Unique Discord emote design",
-        }));
-      default:
-        return VIP_PACKS.map((vip) => ({
-          id: vip.id,
-          src: vip.image,
-          title: vip.alt,
-          type: "VIP Pack",
-          description: "Complete VIP branding package",
-        }));
-    }
-  }
-
-  const currentPosters = getCurrentPosters();
+  const currentPosters = getCurrentPosters(currService);
 
   function handleNext() {
     setCurrIdx((prev) => Math.min(prev + 1, currentPosters.length - 1));
@@ -172,5 +109,3 @@ export default function ServicesPage() {
     </div>
   );
 }
-
-const services = ["Banner", "Logo", "VIP Packs", "Header", "Emote"];
