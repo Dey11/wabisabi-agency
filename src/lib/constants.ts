@@ -78,3 +78,10 @@ export const VIP_PACKS = [
     alt: "VIP Pack 1",
   },
 ];
+
+export const SOCIALS = {
+  discord: "https://discord.gg/kanga",
+  instagram: "https://www.instagram.com/kanga.rp/",
+  behance:
+    "https://www.behance.net/gallery/145554855/Kanga-RP-Mascot-Commission",
+};
