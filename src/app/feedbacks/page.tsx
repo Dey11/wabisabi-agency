@@ -2,13 +2,13 @@ import { Dices } from "lucide-react";
 
 export default function FeedbacksPage() {
   return (
-    <div className="grid grid-cols-8 gap-6 p-2 pb-5 sm:grid-cols-20">
-      <div className="col-span-8 flex flex-col justify-between pt-10 sm:py-20">
+    <div className="grid grid-cols-8 gap-6 p-2 pb-5 lg:grid-cols-20">
+      <div className="col-span-8 flex flex-col justify-between pt-10 lg:py-20">
         <div className="flex flex-col gap-2">
           <p>103</p>
           <h1 className="text-2xl font-semibold">Client's feedbacks</h1>
         </div>
-        <div className="text-secondary-foreground hidden flex-col gap-8 sm:flex">
+        <div className="text-secondary-foreground hidden flex-col gap-8 lg:flex">
           <h2 className="text-2xl leading-relaxed">
             Authentic experiences shared <br />
             by those <span className="font-semibold">
@@ -22,7 +22,7 @@ export default function FeedbacksPage() {
         </div>
       </div>
 
-      <div className="text-secondary-foreground col-span-8 flex flex-col justify-center gap-4 sm:col-span-12 sm:grid sm:grid-cols-1 sm:pt-10 sm:pl-10 lg:grid-cols-2">
+      <div className="text-secondary-foreground col-span-8 flex flex-col justify-center gap-4 sm:grid sm:grid-cols-2 lg:col-span-12 lg:gap-10 lg:p-10">
         {feedbackArray.map((feedback, idx) => (
           <FeedbackBox
             key={idx}
@@ -32,7 +32,7 @@ export default function FeedbacksPage() {
           />
         ))}
       </div>
-      <div className="text-secondary-foreground col-span-8 flex-col gap-8 sm:hidden">
+      <div className="text-secondary-foreground col-span-8 flex-col gap-8 lg:hidden">
         <h2 className="text-xl leading-relaxed">
           Authentic experiences shared by those{" "}
           <span className="font-semibold">who matter most</span> - our clients
