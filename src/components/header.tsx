@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUp, Moon, User } from "lucide-react";
+import { ArrowUp, Moon, PhoneCall, User } from "lucide-react";
 import { DM_Sans } from "next/font/google";
 import MobileMenu from "./mobile-menu";
 import Link from "next/link";
@@ -57,8 +57,8 @@ export default function Header() {
               <ArrowUp className="size-5 rotate-45 transition-all group-hover:rotate-90" />
             </button>
             <Link href="/contact">
-              <button className="hidden cursor-pointer rounded-full border-2 p-2 lg:block">
-                <User className="size-5" />
+              <button className="ring-animation hidden cursor-pointer rounded-full border-2 p-2 lg:block">
+                <PhoneCall className="size-5" />
               </button>
             </Link>
             <button className="rounded-full border-2 p-2">
