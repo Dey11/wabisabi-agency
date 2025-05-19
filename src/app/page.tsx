@@ -6,9 +6,9 @@ export default function Home() {
       <div className="order-2 col-span-6 flex flex-row-reverse gap-4 sm:order-1 sm:col-span-9 sm:flex-col">
         <div className="flex items-end justify-center rounded-2xl bg-[#EED1E3] sm:grow">
           <img
-            src="logo.png"
+            src="totoro.png"
             alt="Totoro"
-            className="size-[60svw] rounded-2xl sm:size-60 sm:rounded-none"
+            className="size-[60svw] rounded-2xl sm:size-[25svw] sm:rounded-none"
           />
         </div>
 
@@ -48,14 +48,12 @@ export default function Home() {
       <div className="text-secondary-foreground order-3 col-span-6 h-fit sm:hidden">
         <div className="flex flex-col gap-4">
           <h3 className="text-3xl font-semibold">
-            Transforming Ideas Into <br />
-            Stunning Designs
+            Transforming Ideas Into Stunning Designs
           </h3>
 
           <p className="text-xl font-normal">
-            Empowering brands with creativity,
-            <br />
-            innovation, and visual storytelling
+            Empowering brands with creativity, innovation, and visual
+            storytelling
           </p>
         </div>
       </div>
