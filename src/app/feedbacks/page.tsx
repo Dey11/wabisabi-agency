@@ -52,7 +52,7 @@ type FeedbackBoxProps = {
   where: string;
 };
 
-export function FeedbackBox({ author, content, where }: FeedbackBoxProps) {
+function FeedbackBox({ author, content, where }: FeedbackBoxProps) {
   return (
     <div className="border-foreground flex cursor-pointer flex-col justify-between gap-4 rounded-2xl border-2 p-4 transition-all duration-150 ease-in-out hover:border hover:shadow-2xl lg:aspect-square">
       <p>{content}</p>
