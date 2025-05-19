@@ -1,7 +1,11 @@
-import { ArrowUp, Menu, Moon, User } from "lucide-react";
+"use client";
+
+import { ArrowUp, Moon, User } from "lucide-react";
 import { DM_Sans } from "next/font/google";
 import MobileMenu from "./mobile-menu";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -9,6 +13,15 @@ const dmSans = DM_Sans({
 });
 
 export default function Header() {
+  const [currentTab, setCurrentTab] = useState<NavItem>(NavItem.Services);
+
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    setCurrentTab(pathname as NavItem);
+  }, [pathname]);
+
   return (
     <header
       className={`flex items-center justify-between p-2 ${dmSans.variable}`}
@@ -28,7 +41,12 @@ export default function Header() {
         <ul className="flex items-center gap-10 text-2xl">
           {navItems.map((item) => (
             <li key={item.name} className="hidden lg:block">
-              <a href={item.href} className="text-gray-700 hover:text-gray-900">
+              <a
+                href={item.href}
+                className={`${
+                  currentTab === item.href ? "font-medium" : "text-gray-700"
+                } hover:text-gray-900`}
+              >
                 {item.name}
               </a>
             </li>
@@ -68,3 +86,9 @@ const navItems = [
     href: "/feedbacks",
   },
 ];
+
+enum NavItem {
+  Services = "/services",
+  Works = "/works",
+  Feedbacks = "/feedbacks",
+}

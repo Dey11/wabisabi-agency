@@ -7,11 +7,28 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+
+enum NavItem {
+  Services = "/services",
+  Works = "/works",
+  Feedbacks = "/feedbacks",
+  Contact = "/contact",
+}
 
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const [currentTab, setCurrentTab] = useState<NavItem>(NavItem.Services);
+
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    setCurrentTab(pathname as NavItem);
+  }, [pathname]);
 
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
@@ -37,7 +54,17 @@ export default function MobileMenu() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-transparent backdrop-blur-lg">
         {navItems.map((item) => (
-          <DropdownMenuItem key={item.name}>{item.name}</DropdownMenuItem>
+          <Link href={item.href} key={item.name}>
+            <DropdownMenuItem
+              key={item.name}
+              className={cn(
+                "text-gray-700",
+                currentTab === item.href && "bg-[#EBEBEB]",
+              )}
+            >
+              {item.name}
+            </DropdownMenuItem>
+          </Link>
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
