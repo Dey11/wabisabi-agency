@@ -45,7 +45,7 @@ export default function Home() {
           </p>
         </div>
       </div>
-      <div className="order-3 col-span-6 h-fit sm:hidden">
+      <div className="text-secondary-foreground order-3 col-span-6 h-fit sm:hidden">
         <div className="flex flex-col gap-4">
           <h3 className="text-3xl font-semibold">
             Transforming Ideas Into <br />

@@ -1,6 +1,7 @@
 import { ArrowUp, Menu, Moon, User } from "lucide-react";
 import { DM_Sans } from "next/font/google";
 import MobileMenu from "./mobile-menu";
+import Link from "next/link";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -12,14 +13,16 @@ export default function Header() {
     <header
       className={`flex items-center justify-between p-2 ${dmSans.variable}`}
     >
-      <div className="flex gap-2 text-lg font-bold lg:text-3xl">
-        <img
-          src="/logo.png"
-          alt="Logo"
-          className="mt-2 size-10 sm:mt-0 lg:size-12"
-        />
-        <span className="mt-4 hidden sm:block">Wabi Sabi</span>
-      </div>
+      <Link href="/" className="group">
+        <div className="flex gap-2 text-lg font-bold lg:text-3xl">
+          <img
+            src="/logo.png"
+            alt="Logo"
+            className="mt-2 size-10 transition-all group-hover:scale-110 sm:mt-0 lg:size-12"
+          />
+          <span className="mt-4 hidden transition-all sm:block">Wabi Sabi</span>
+        </div>
+      </Link>
 
       <nav className="mt-4">
         <ul className="flex items-center gap-10 text-2xl">
@@ -31,13 +34,15 @@ export default function Header() {
             </li>
           ))}
           <div className="flex items-center gap-2">
-            <button className="flex items-center gap-1 rounded-full border-2 px-4 py-2 text-xs lg:py-1 lg:text-xl">
+            <button className="group flex cursor-pointer items-center gap-1 rounded-full border-2 px-4 py-2 text-xs lg:py-1 lg:text-xl">
               <span>Purchase Plan</span>
-              <ArrowUp className="size-5 rotate-45" />
+              <ArrowUp className="size-5 rotate-45 transition-all group-hover:rotate-90" />
             </button>
-            <button className="hidden rounded-full border-2 p-2 lg:block">
-              <User className="size-5" />
-            </button>
+            <Link href="/contact">
+              <button className="hidden cursor-pointer rounded-full border-2 p-2 lg:block">
+                <User className="size-5" />
+              </button>
+            </Link>
             <button className="rounded-full border-2 p-2">
               <Moon className="size-5" />
             </button>
