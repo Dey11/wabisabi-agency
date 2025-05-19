@@ -1,4 +1,6 @@
+import { SOCIALS } from "@/lib/constants";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -13,15 +15,24 @@ export default function Home() {
         </div>
 
         <div className="flex grow flex-col justify-between gap-4 sm:grow-0 sm:flex-row">
-          <div className="flex aspect-square h-auto w-full items-center justify-center rounded-2xl bg-[#FBFBFB]">
+          <Link
+            href={SOCIALS.instagram}
+            className="flex aspect-square h-auto w-full items-center justify-center rounded-2xl bg-[#FBFBFB]"
+          >
             <img src="icons/insta.svg" className="size-10" alt="Instagram" />
-          </div>
-          <div className="flex aspect-square h-auto w-full items-center justify-center rounded-2xl bg-[#FBFBFB]">
+          </Link>
+          <Link
+            href={SOCIALS.behance}
+            className="flex aspect-square h-auto w-full items-center justify-center rounded-2xl bg-[#FBFBFB]"
+          >
             <img src="icons/behance.svg" className="size-10" alt="Instagram" />
-          </div>
-          <div className="flex aspect-square h-auto w-full items-center justify-center rounded-2xl bg-[#FBFBFB]">
+          </Link>
+          <Link
+            href={SOCIALS.discord}
+            className="flex aspect-square h-auto w-full items-center justify-center rounded-2xl bg-[#FBFBFB]"
+          >
             <img src="icons/discord.svg" className="size-10" alt="Instagram" />
-          </div>
+          </Link>
         </div>
       </div>
       <div className="relative order-1 col-span-6 h-[30svh] sm:order-2 sm:col-span-11 sm:h-auto">

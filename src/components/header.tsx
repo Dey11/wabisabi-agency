@@ -6,6 +6,7 @@ import MobileMenu from "./mobile-menu";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { SOCIALS } from "@/lib/constants";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -52,10 +53,12 @@ export default function Header() {
             </li>
           ))}
           <div className="flex items-center gap-2">
-            <button className="group flex cursor-pointer items-center gap-1 rounded-full border-2 px-4 py-2 text-xs lg:py-1 lg:text-xl">
-              <span>Purchase Plan</span>
-              <ArrowUp className="size-5 rotate-45 transition-all group-hover:rotate-90" />
-            </button>
+            <Link href={SOCIALS.discord}>
+              <button className="group flex cursor-pointer items-center gap-1 rounded-full border-2 px-4 py-2 text-xs lg:py-1 lg:text-xl">
+                <span>Purchase Plan</span>
+                <ArrowUp className="size-5 rotate-45 transition-all group-hover:rotate-90" />
+              </button>
+            </Link>
             <Link href="/contact">
               <button className="ring-animation hidden cursor-pointer rounded-full border-2 p-2 lg:block">
                 <PhoneCall className="size-5" />
