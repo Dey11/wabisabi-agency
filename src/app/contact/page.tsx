@@ -10,7 +10,7 @@ const allura = Allura({
 
 export default function ContactPage() {
   return (
-    <div className="grid h-[85dvh] grid-cols-20 gap-6">
+    <div className="grid h-[90svh] grid-cols-20 gap-6 pb-5">
       <div className="col-span-10 flex flex-col justify-between pt-10">
         <div className="flex flex-col gap-2">
           <p>104</p>

@@ -14,7 +14,7 @@ export default function WorksPage() {
   const currentPosters = getCurrentPosters(currService);
 
   return (
-    <div className="flex h-[85dvh] flex-col gap-6 pt-20 pb-10">
+    <div className="flex h-[90svh] flex-col gap-6 pt-20 pb-5">
       <div className="flex items-end justify-between gap-2">
         <div className="flex flex-col gap-2">
           <p>102</p>
@@ -59,7 +59,7 @@ export default function WorksPage() {
               key={`first-${idx}`}
               src={poster.src}
               alt={`carousel-${idx}`}
-              className="aspect-square h-[50dvh] rounded-lg bg-slate-400 object-cover shadow-md"
+              className="aspect-square h-[50svh] rounded-lg bg-slate-400 object-cover shadow-md"
             />
           ))}
 
@@ -68,7 +68,7 @@ export default function WorksPage() {
               key={`second-${idx}`}
               src={poster.src}
               alt={`carousel-duplicate-${idx}`}
-              className="aspect-square h-[50dvh] rounded-lg bg-slate-400 object-cover shadow-md"
+              className="aspect-square h-[50svh] rounded-lg bg-slate-400 object-cover shadow-md"
             />
           ))}
         </motion.div>

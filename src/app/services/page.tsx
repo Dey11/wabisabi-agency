@@ -20,7 +20,7 @@ export default function ServicesPage() {
   }
 
   return (
-    <div className="grid h-[85dvh] grid-cols-20 gap-6">
+    <div className="grid h-[90svh] grid-cols-20 gap-6 pb-5">
       <div className="col-span-8 flex flex-col justify-between pt-10 pb-20">
         <div className="flex flex-col gap-2">
           <p>101</p>
@@ -49,8 +49,8 @@ export default function ServicesPage() {
         </div>
       </div>
 
-      <div className="text-secondary-foreground col-span-12 flex flex-col overflow-clip p-10">
-        <div className="mb-5 flex items-center gap-3">
+      <div className="text-secondary-foreground col-span-12 flex flex-col overflow-clip pt-10 pl-10">
+        <div className="mb-5 flex w-full items-center justify-end gap-5">
           {services.map((service, idx) => {
             const serviceType = service
               .toLowerCase()
@@ -74,14 +74,14 @@ export default function ServicesPage() {
           })}
         </div>
         <motion.div
-          animate={{ x: `-${currIdx * 60}dvh` }}
+          animate={{ x: `-${currIdx * 60}svh` }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
           className="flex items-center gap-5 rounded-3xl"
         >
           {currentPosters.length > 0 ? (
             currentPosters.map((poster) => (
               <div
-                className="relative aspect-square h-[60dvh] rounded-3xl bg-cover bg-center"
+                className="relative aspect-square h-[60svh] rounded-3xl bg-cover bg-center"
                 style={{
                   backgroundImage: `url(${poster.src})`,
                 }}
@@ -100,7 +100,7 @@ export default function ServicesPage() {
               </div>
             ))
           ) : (
-            <div className="flex h-[60dvh] items-center justify-center">
+            <div className="flex h-[60svh] items-center justify-center">
               <p>No images available for this service</p>
             </div>
           )}

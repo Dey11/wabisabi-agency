@@ -8,7 +8,7 @@ export default function Home() {
           <img
             src="logo.png"
             alt="Totoro"
-            className="size-[60svw] rounded-2xl sm:size-60"
+            className="size-[60svw] rounded-2xl sm:size-60 sm:rounded-none"
           />
         </div>
 

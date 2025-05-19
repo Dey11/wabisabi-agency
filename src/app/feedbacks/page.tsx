@@ -2,7 +2,7 @@ import { Dices } from "lucide-react";
 
 export default function FeedbacksPage() {
   return (
-    <div className="grid grid-cols-8 gap-6 p-2 sm:h-[85dvh] sm:grid-cols-20">
+    <div className="grid grid-cols-8 gap-6 p-2 pb-5 sm:grid-cols-20">
       <div className="col-span-8 flex flex-col justify-between pt-10 sm:py-20">
         <div className="flex flex-col gap-2">
           <p>103</p>
