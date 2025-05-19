@@ -80,8 +80,7 @@ export const VIP_PACKS = [
 ];
 
 export const SOCIALS = {
-  discord: "https://discord.gg/kanga",
-  instagram: "https://www.instagram.com/kanga.rp/",
-  behance:
-    "https://www.behance.net/gallery/145554855/Kanga-RP-Mascot-Commission",
+  discord: "https://discord.gg/qtn5H4gBQK",
+  instagram: "https://discord.gg/qtn5H4gBQK",
+  behance: "https://www.behance.net/wabisabiarts",
 };
