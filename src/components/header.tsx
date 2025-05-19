@@ -13,7 +13,7 @@ const dmSans = DM_Sans({
   variable: "--font-dm-sans",
 });
 
-export default function Header() {
+export default function Header({ toggleTheme }: { toggleTheme: () => void }) {
   const [currentTab, setCurrentTab] = useState<NavItem>(NavItem.Services);
 
   const pathname = usePathname();
@@ -64,7 +64,7 @@ export default function Header() {
                 <PhoneCall className="size-5" />
               </button>
             </Link>
-            <button className="rounded-full border-2 p-2">
+            <button onClick={toggleTheme} className="rounded-full border-2 p-2">
               <Moon className="size-5" />
             </button>
             <MobileMenu />

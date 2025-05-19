@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="grid grid-cols-6 gap-4 p-2 py-5 sm:h-[85svh] sm:grid-cols-20 sm:gap-6">
+    <div className="grid grid-cols-6 gap-4 p-2 py-5 sm:h-[85svh] sm:grid-cols-20 sm:gap-6">
       <div className="order-2 col-span-6 flex flex-row-reverse gap-4 sm:order-1 sm:col-span-9 sm:flex-col">
         <div className="flex items-end justify-center rounded-2xl bg-[#EED1E3] sm:grow">
           <img
@@ -68,6 +68,6 @@ export default function Home() {
           </p>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
