@@ -35,14 +35,14 @@ export default function ServicesPage() {
           <button
             onClick={handlePrev}
             disabled={currIdx === 0}
-            className="cursor-pointer rounded-2xl bg-[#FDF2F0] px-4 py-2 hover:bg-[#FDF2F0]/70"
+            className="dark:bg-secondary dark:hover:bg-secondary/70 cursor-pointer rounded-2xl bg-[#FDF2F0] px-4 py-2 hover:bg-[#FDF2F0]/70"
           >
             {"<"}
           </button>
           <button
             onClick={handleNext}
             disabled={currIdx === currentPosters.length - 1}
-            className="cursor-pointer rounded-2xl bg-[#FDF2F0] px-4 py-2 hover:bg-[#FDF2F0]/70"
+            className="dark:bg-secondary dark:hover:bg-secondary/70 cursor-pointer rounded-2xl bg-[#FDF2F0] px-4 py-2 hover:bg-[#FDF2F0]/70"
           >
             {">"}
           </button>
@@ -62,10 +62,10 @@ export default function ServicesPage() {
                   setCurrService(serviceType);
                   setCurrIdx(0);
                 }}
-                className={`rounded-lg px-2 py-1 transition-colors lg:text-xl ${
+                className={`cursor-pointer rounded-lg px-2 py-1 transition-colors lg:text-xl ${
                   currService === serviceType
-                    ? "bg-[#C7C7C7]/30 text-[#CA2078] hover:bg-[#CA207833]/70 lg:bg-[#CA207833]"
-                    : "text-secondary-foreground/80 border border-slate-300 hover:bg-[#c7c7c7]/70 lg:border-0 lg:bg-[#C7C7C7]"
+                    ? "dark:text-primary dark:bg-foreground dark:hover:bg-foreground/70 bg-[#C7C7C7]/30 text-[#CA2078] hover:bg-[#CA207833]/70 lg:bg-[#CA207833]"
+                    : "text-secondary-foreground/80 lg:dark:text-secondary border border-slate-300 hover:bg-[#c7c7c7]/70 lg:border-0 lg:bg-[#C7C7C7]"
                 }`}
               >
                 {service}
@@ -89,7 +89,7 @@ export default function ServicesPage() {
               >
                 <div className="group absolute inset-0 z-10 rounded-3xl bg-gradient-to-b from-transparent from-30% to-180% transition-colors delay-100 hover:bg-gradient-to-b hover:to-black">
                   <div className="absolute top-5 right-5">
-                    <MoveUpRight className="size-8 rounded-full border border-white bg-white p-2 opacity-0 transition-all delay-100 group-hover:opacity-100" />
+                    <MoveUpRight className="size-8 rounded-full border border-white bg-white p-2 opacity-0 transition-all delay-100 group-hover:opacity-100 dark:border-black dark:text-black" />
                   </div>
                   <div className="absolute bottom-0 max-w-sm rounded-3xl p-5 text-white opacity-0 transition-all delay-100 group-hover:opacity-100">
                     <p className="font-bold">{poster.title}</p>
@@ -141,13 +141,13 @@ export default function ServicesPage() {
       <div className="col-span-10 flex items-center justify-end gap-5 text-2xl font-semibold lg:hidden">
         <button
           onClick={handlePrev}
-          className="cursor-pointer rounded-2xl bg-[#FDF2F0] px-4 py-2"
+          className="dark:bg-secondary dark:hover:bg-secondary/70 cursor-pointer rounded-2xl bg-[#FDF2F0] px-4 py-2 hover:bg-[#FDF2F0]/70"
         >
           {"<"}
         </button>
         <button
           onClick={handleNext}
-          className="cursor-pointer rounded-2xl bg-[#FDF2F0] px-4 py-2"
+          className="dark:bg-secondary dark:hover:bg-secondary/70 cursor-pointer rounded-2xl bg-[#FDF2F0] px-4 py-2 hover:bg-[#FDF2F0]/70"
         >
           {">"}
         </button>

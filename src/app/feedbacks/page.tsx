@@ -1,5 +1,3 @@
-"use client";
-
 import { FeedbacksClient } from "@/components/feedbacks-client";
 
 const feedbackArray = [

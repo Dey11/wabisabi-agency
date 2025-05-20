@@ -17,21 +17,48 @@ export default function Home() {
         <div className="flex grow flex-col justify-between gap-4 sm:grow-0 sm:flex-row">
           <Link
             href={SOCIALS.instagram}
-            className="flex aspect-square h-auto w-full items-center justify-center rounded-2xl bg-[#FBFBFB]"
+            className="dark:bg-secondary flex aspect-square h-auto w-full items-center justify-center rounded-2xl bg-[#FBFBFB]"
           >
-            <img src="icons/insta.svg" className="size-10" alt="Instagram" />
+            <img
+              src="icons/insta.svg"
+              className="size-10 dark:hidden"
+              alt="Instagram"
+            />
+            <img
+              src="icons/dark/insta.svg"
+              className="hidden size-10 dark:block"
+              alt="Instagram"
+            />
           </Link>
           <Link
             href={SOCIALS.behance}
-            className="flex aspect-square h-auto w-full items-center justify-center rounded-2xl bg-[#FBFBFB]"
+            className="dark:bg-secondary flex aspect-square h-auto w-full items-center justify-center rounded-2xl bg-[#FBFBFB]"
           >
-            <img src="icons/behance.svg" className="size-10" alt="Instagram" />
+            <img
+              src="icons/behance.svg"
+              className="size-10 dark:hidden"
+              alt="Instagram"
+            />
+            <img
+              src="icons/dark/behance.svg"
+              className="hidden size-10 dark:block"
+              alt="Instagram"
+            />
           </Link>
           <Link
             href={SOCIALS.discord}
-            className="flex aspect-square h-auto w-full items-center justify-center rounded-2xl bg-[#FBFBFB]"
+            className="dark:bg-secondary flex aspect-square h-auto w-full items-center justify-center rounded-2xl bg-[#FBFBFB]"
           >
-            <img src="icons/discord.svg" className="size-10" alt="Instagram" />
+            <img
+              src="icons/discord.svg"
+              className="size-10 dark:hidden"
+              alt="Instagram"
+            />
+            <img
+              src="icons/dark/discord.svg"
+              className="hidden size-10 dark:block"
+              alt="Instagram"
+            />
           </Link>
         </div>
       </div>

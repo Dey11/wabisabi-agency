@@ -147,3 +147,35 @@
   animation: none;
   mix-blend-mode: normal;
 }
+
+@keyframes sun-moon {
+  0% {
+    translate: 0 2rem;
+  }
+  50% {
+    translate: 0 1rem;
+  }
+  100% {
+    translate: 0 0;
+  }
+}
+
+@keyframes sun-moon-reverse {
+  0% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -1rem;
+  }
+  100% {
+    translate: 0 -2rem;
+  }
+}
+
+.sun-moon-animation {
+  animation: sun-moon 0.5s linear forwards;
+}
+
+.sun-moon-animation-reverse {
+  animation: sun-moon-reverse 0.5s linear forwards;
+}

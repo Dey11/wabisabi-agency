@@ -1,20 +1,70 @@
 "use client";
 
-import { ArrowUp, Moon, PhoneCall, User } from "lucide-react";
+import { ArrowUp, Moon, PhoneCall, Sun, User } from "lucide-react";
 import { DM_Sans } from "next/font/google";
 import MobileMenu from "./mobile-menu";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { SOCIALS } from "@/lib/constants";
+import { flushSync } from "react-dom";
+import { cn } from "@/lib/utils";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-dm-sans",
 });
 
-export default function Header({ toggleTheme }: { toggleTheme: () => void }) {
+export default function Header() {
   const [currentTab, setCurrentTab] = useState<NavItem>(NavItem.Services);
+  const [isDark, setIsDark] = useState(false);
+  const ref = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    setIsDark(savedTheme === "dark");
+  }, []);
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [isDark]);
+
+  const toggleTheme = async () => {
+    if (!ref.current) return;
+    await document.startViewTransition(() => {
+      flushSync(() => {
+        setIsDark(!isDark);
+      });
+    }).ready;
+
+    const { top, left } = ref.current.getBoundingClientRect();
+    const x = left;
+    const y = top;
+    const right = window.innerWidth - left;
+    const bottom = window.innerHeight - top;
+
+    const maxRadius = Math.hypot(Math.max(left, right), Math.max(top, bottom));
+
+    document.documentElement.animate(
+      {
+        clipPath: [
+          `circle(0px at ${x}px ${y}px)`,
+          `circle(${maxRadius}px at ${x}px ${y}px)`,
+        ],
+      },
+      {
+        duration: 700,
+        easing: "ease-in-out",
+        pseudoElement: "::view-transition-new(root)",
+      },
+    );
+  };
 
   const pathname = usePathname();
 
@@ -42,30 +92,47 @@ export default function Header({ toggleTheme }: { toggleTheme: () => void }) {
         <ul className="flex items-center gap-10 text-2xl">
           {navItems.map((item) => (
             <li key={item.name} className="hidden lg:block">
-              <a
+              <Link
                 href={item.href}
                 className={`${
-                  currentTab === item.href ? "font-medium" : "text-gray-700"
-                } hover:text-gray-900`}
+                  currentTab === item.href
+                    ? "font-medium"
+                    : "text-gray-700 dark:text-white"
+                } dark:hover:text-foreground/80 hover:text-gray-900`}
               >
                 {item.name}
-              </a>
+              </Link>
             </li>
           ))}
           <div className="flex items-center gap-2">
             <Link href={SOCIALS.discord}>
-              <button className="group flex cursor-pointer items-center gap-1 rounded-full border-2 px-4 py-2 text-xs lg:py-1 lg:text-xl">
+              <button className="group flex cursor-pointer items-center gap-1 rounded-full border-2 px-4 py-2 text-xs lg:py-1 lg:text-xl dark:border-white dark:text-white">
                 <span>Purchase Plan</span>
                 <ArrowUp className="size-5 rotate-45 transition-all group-hover:rotate-90" />
               </button>
             </Link>
             <Link href="/contact">
-              <button className="ring-animation hidden cursor-pointer rounded-full border-2 p-2 lg:block">
-                <PhoneCall className="size-5" />
+              <button className="ring-animation hidden cursor-pointer rounded-full border-2 p-2 lg:block dark:border-white">
+                <PhoneCall className="size-5 dark:text-white" />
               </button>
             </Link>
-            <button onClick={toggleTheme} className="rounded-full border-2 p-2">
-              <Moon className="size-5" />
+            <button
+              onClick={toggleTheme}
+              className="relative size-9.5 cursor-pointer overflow-hidden rounded-full border-2 dark:border-white"
+              ref={ref}
+            >
+              <Sun
+                className={cn(
+                  "absolute inset-0 m-auto size-5 transition-all duration-300",
+                  !isDark ? "sun-moon-animation-reverse" : "sun-moon-animation",
+                )}
+              />
+              <Moon
+                className={cn(
+                  "absolute inset-0 m-auto size-5 transition-all duration-300",
+                  isDark ? "sun-moon-animation-reverse" : "sun-moon-animation",
+                )}
+              />
             </button>
             <MobileMenu />
           </div>

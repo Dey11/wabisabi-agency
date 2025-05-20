@@ -29,9 +29,9 @@ export default function WorksPage() {
                 onClick={() =>
                   setCurrService(service.toLowerCase() as ServiceType["type"])
                 }
-                className={`rounded-md px-2 py-1 text-base transition-colors sm:text-lg ${
+                className={`cursor-pointer rounded-md px-2 py-1 text-base transition-colors sm:text-lg ${
                   currService === service.toLowerCase()
-                    ? "border bg-[#C7C7C7]/30 text-[#CA2078] hover:bg-[#CA207833]/70 sm:border-none sm:bg-transparent"
+                    ? "dark:text-foreground dark:hover:bg-foreground/50 border bg-[#C7C7C7]/30 text-[#CA2078] hover:bg-[#CA207833]/70 sm:border-none sm:bg-transparent"
                     : "text-secondary-foreground/80 border border-slate-300 hover:bg-[#c7c7c7]/70 sm:border-none sm:bg-transparent"
                 }`}
               >
@@ -43,7 +43,7 @@ export default function WorksPage() {
       </div>
 
       <div className="relative w-full overflow-x-hidden py-2">
-        <div className="absolute inset-0 z-10 bg-linear-[90deg,white_-3%,transparent_10%,transparent_90%,white_103%,white]" />
+        <div className="absolute inset-0 z-10 bg-linear-[90deg,white_-3%,transparent_10%,transparent_90%,white_103%,white] dark:bg-linear-[90deg,black_-3%,transparent_10%,transparent_90%,black_103%,black]" />
         <motion.div
           className="flex w-max gap-4"
           animate={{ x: ["0%", "-50%"] }}

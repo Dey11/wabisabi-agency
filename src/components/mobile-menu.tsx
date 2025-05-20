@@ -33,7 +33,7 @@ export default function MobileMenu() {
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
-        <button className="relative size-10 rounded-full border-2 p-2 lg:hidden">
+        <button className="relative size-10 rounded-full border-2 p-2 lg:hidden dark:border-white">
           <X
             className={cn(
               "absolute inset-0 m-auto size-5 transition-all duration-300 ease-in-out",
@@ -52,14 +52,14 @@ export default function MobileMenu() {
           />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-white">
+      <DropdownMenuContent className="bg-white dark:bg-[#212020]">
         {navItems.map((item) => (
           <Link href={item.href} key={item.name}>
             <DropdownMenuItem
               key={item.name}
               className={cn(
-                "text-gray-700",
-                currentTab === item.href && "bg-[#EBEBEB]",
+                "text-gray-700 dark:text-white",
+                currentTab === item.href && "bg-[#EBEBEB] dark:bg-black/20",
               )}
             >
               {item.name}
