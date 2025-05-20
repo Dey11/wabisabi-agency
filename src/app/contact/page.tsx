@@ -18,12 +18,12 @@ export default function ContactPage() {
         </div>
 
         <h2
-          className={`${allura.className} text-secondary-foreground hidden text-5xl leading-relaxed font-bold lg:block`}
+          className={`${allura.className} text-secondary-foreground hidden text-[10svh] leading-relaxed font-bold lg:block`}
         >
           Rudraksh Roy
         </h2>
 
-        <p className="hidden lg:block">
+        <p className="hidden text-[3svh] lg:block">
           With over 5 years of experience, our agency has grown into a trusted
           partner for brands seeking exceptional design solutions.
         </p>
@@ -68,7 +68,16 @@ export default function ContactPage() {
         </div>
       </div>
 
-      <div className="relative col-span-10 flex justify-end overflow-hidden px-10 lg:px-0 lg:pt-10">
+      <div className="relative col-span-10 mx-20 hidden justify-end overflow-hidden px-10 lg:flex lg:px-0 lg:pt-10">
+        <Image
+          src="/rudrakshpic.jpg"
+          alt="rudraksh"
+          fill
+          priority
+          className="mx-auto rounded-3xl object-cover lg:absolute lg:inset-x-0 lg:mx-auto lg:mt-20 lg:rounded-b-none"
+        />
+      </div>
+      <div className="relative col-span-10 flex justify-end overflow-hidden px-10 lg:hidden">
         <Image
           src="/rudrakshpic.jpg"
           alt="rudraksh"

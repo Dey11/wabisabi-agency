@@ -18,8 +18,8 @@ export default function ServicesPage() {
   }
 
   return (
-    <div className="grid h-[90svh] grid-cols-10 gap-6 p-2 pb-5 lg:grid-cols-20">
-      <div className="col-span-10 flex flex-col justify-between pt-10 lg:col-span-8 lg:pb-20">
+    <div className="grid h-[90lvh] grid-cols-10 gap-6 p-2 pb-5 lg:grid-cols-20">
+      <div className="col-span-10 flex flex-col justify-between pt-10 lg:col-span-8 lg:pb-10">
         <div className="flex flex-col gap-2">
           <p>101</p>
           <h1 className="text-2xl font-semibold">Our expertise</h1>
@@ -34,13 +34,15 @@ export default function ServicesPage() {
         <div className="hidden items-center gap-3 text-2xl font-semibold lg:flex">
           <button
             onClick={handlePrev}
-            className="cursor-pointer rounded-2xl bg-[#FDF2F0] px-4 py-2"
+            disabled={currIdx === 0}
+            className="cursor-pointer rounded-2xl bg-[#FDF2F0] px-4 py-2 hover:bg-[#FDF2F0]/70"
           >
             {"<"}
           </button>
           <button
             onClick={handleNext}
-            className="cursor-pointer rounded-2xl bg-[#FDF2F0] px-4 py-2"
+            disabled={currIdx === currentPosters.length - 1}
+            className="cursor-pointer rounded-2xl bg-[#FDF2F0] px-4 py-2 hover:bg-[#FDF2F0]/70"
           >
             {">"}
           </button>
@@ -60,9 +62,9 @@ export default function ServicesPage() {
                   setCurrService(serviceType);
                   setCurrIdx(0);
                 }}
-                className={`rounded-md px-2 py-1 transition-colors lg:text-xl ${
+                className={`rounded-lg px-2 py-1 transition-colors lg:text-xl ${
                   currService === serviceType
-                    ? "border bg-[#C7C7C7]/30 text-[#CA2078] hover:bg-[#CA207833]/70 lg:bg-[#CA207833]"
+                    ? "bg-[#C7C7C7]/30 text-[#CA2078] hover:bg-[#CA207833]/70 lg:bg-[#CA207833]"
                     : "text-secondary-foreground/80 border border-slate-300 hover:bg-[#c7c7c7]/70 lg:border-0 lg:bg-[#C7C7C7]"
                 }`}
               >
@@ -72,14 +74,14 @@ export default function ServicesPage() {
           })}
         </div>
         <motion.div
-          animate={{ x: `-${currIdx * 57}svh` }}
+          animate={{ x: `-${currIdx * 68}lvh` }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
           className="hidden items-center gap-5 rounded-3xl lg:flex"
         >
           {currentPosters.length > 0 ? (
             currentPosters.map((poster) => (
               <div
-                className="relative aspect-square h-[60svh] rounded-3xl bg-cover bg-center"
+                className="relative aspect-square h-[70lvh] rounded-3xl bg-cover bg-center transition-all delay-75 duration-75 ease-in"
                 style={{
                   backgroundImage: `url(${poster.src})`,
                 }}
@@ -98,20 +100,20 @@ export default function ServicesPage() {
               </div>
             ))
           ) : (
-            <div className="flex h-[60svh] items-center justify-center">
+            <div className="flex h-[60lvh] items-center justify-center">
               <p>No images available for this service</p>
             </div>
           )}
         </motion.div>
         <motion.div
-          animate={{ x: `-${currIdx * 43}svh` }}
+          animate={{ x: `-${currIdx * 43}lvh` }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
           className="flex items-center gap-5 rounded-3xl lg:hidden"
         >
           {currentPosters.length > 0 ? (
             currentPosters.map((poster) => (
               <div
-                className="relative aspect-square h-[40svh] rounded-3xl bg-cover bg-center"
+                className="relative aspect-square h-[40lvh] rounded-3xl bg-cover bg-center"
                 style={{
                   backgroundImage: `url(${poster.src})`,
                 }}
@@ -130,7 +132,7 @@ export default function ServicesPage() {
               </div>
             ))
           ) : (
-            <div className="flex h-[40svh] items-center justify-center lg:h-[60svh]">
+            <div className="flex h-[40lvh] items-center justify-center lg:h-[60lvh]">
               <p>No images available for this service</p>
             </div>
           )}

@@ -59,7 +59,7 @@ export default function WorksPage() {
               key={`first-${idx}`}
               src={poster.src}
               alt={`carousel-${idx}`}
-              className="aspect-square h-[35svh] rounded-lg bg-slate-400 object-cover shadow-md sm:h-[50svh]"
+              className="aspect-square h-[35svh] rounded-lg bg-slate-400 object-cover shadow-md transition-all delay-75 duration-75 ease-in sm:h-[60svh]"
             />
           ))}
 
@@ -68,7 +68,7 @@ export default function WorksPage() {
               key={`second-${idx}`}
               src={poster.src}
               alt={`carousel-duplicate-${idx}`}
-              className="aspect-square h-[35svh] rounded-lg bg-slate-400 object-cover shadow-md sm:h-[50svh]"
+              className="aspect-square h-[35svh] rounded-lg bg-slate-400 object-cover shadow-md transition-all delay-75 duration-75 ease-in sm:h-[60svh]"
             />
           ))}
         </motion.div>

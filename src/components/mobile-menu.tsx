@@ -52,7 +52,7 @@ export default function MobileMenu() {
           />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-transparent backdrop-blur-lg">
+      <DropdownMenuContent className="bg-white">
         {navItems.map((item) => (
           <Link href={item.href} key={item.name}>
             <DropdownMenuItem
