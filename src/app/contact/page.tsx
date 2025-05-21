@@ -14,7 +14,7 @@ export default function ContactPage() {
       <div className="col-span-10 flex flex-col justify-between pt-10">
         <div className="flex flex-col gap-2">
           <p>104</p>
-          <h1 className="text-2xl font-semibold">Let's meet out Founder</h1>
+          <h1 className="text-2xl font-semibold">Let's meet our Founder</h1>
         </div>
 
         <h2
