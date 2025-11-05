@@ -74,7 +74,7 @@ export default function ServicesPage() {
           })}
         </div>
         <motion.div
-          animate={{ x: `-${currIdx * 68}lvh` }}
+          animate={{ x: `-${currIdx * 72}lvh` }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
           className="hidden items-center gap-5 rounded-3xl lg:flex"
         >
