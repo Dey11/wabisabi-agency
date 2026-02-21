@@ -3,6 +3,8 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import { unstable_ViewTransition as ViewTransition } from "react";
+import { CursorTrail } from "@/components/cursor-trail";
+import { Footer } from "@/components/footer";
 const poppins = Poppins({
   variable: "--font-poppins",
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -33,15 +35,13 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${poppins.className}`}>
-        <main className={`mx-auto max-w-[1400px] antialiased`}>
+      <body className={`${poppins.className} flex min-h-screen flex-col`}>
+        <CursorTrail />
+        <div className={`mx-auto w-full max-w-[1400px] flex-1 antialiased`}>
           <Header />
-          <ViewTransition name="pages">
-            <main className={`mx-auto max-w-[1400px] antialiased`}>
-              {children}
-            </main>
-          </ViewTransition>
-        </main>
+          <ViewTransition name="pages">{children}</ViewTransition>
+        </div>
+        <Footer />
       </body>
     </html>
   );

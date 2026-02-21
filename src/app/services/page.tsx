@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { MoveUpRight, X } from "lucide-react";
 import { getCurrentPosters, ServiceType, services } from "@/lib/utils";
+import { AnimatedCounter } from "@/components/animated-counter";
 
 export default function ServicesPage() {
   const [currIdx, setCurrIdx] = useState(0);
@@ -36,12 +37,26 @@ export default function ServicesPage() {
     setCurrIdx((prev) => Math.max(prev - 1, 0));
   }
 
+  useEffect(() => {
+    if (lightboxSrc) return; // don't interfere with lightbox keys
+
+    const handleArrowKeys = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") handlePrev();
+      if (e.key === "ArrowRight") handleNext();
+    };
+
+    document.addEventListener("keydown", handleArrowKeys);
+    return () => document.removeEventListener("keydown", handleArrowKeys);
+  }, [lightboxSrc, currentPosters.length]);
+
   return (
     <>
       <div className="grid h-[90lvh] grid-cols-10 gap-6 p-2 pb-5 lg:grid-cols-20">
         <div className="col-span-10 flex flex-col justify-between pt-10 lg:col-span-8 lg:pb-10">
           <div className="flex flex-col gap-2">
-            <p>101</p>
+            <p>
+              <AnimatedCounter value={101} />
+            </p>
             <h1 className="text-2xl font-semibold">Our expertise</h1>
           </div>
 

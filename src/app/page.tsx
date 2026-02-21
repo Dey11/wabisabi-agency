@@ -1,11 +1,31 @@
+"use client";
+
 import { SOCIALS } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "motion/react";
 
 export default function Home() {
+  const stagger = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.1 } },
+  };
+  const fadeUp = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  };
+
   return (
-    <div className="grid grid-cols-6 gap-4 p-2 py-5 sm:h-[85svh] sm:grid-cols-20 sm:gap-6">
-      <div className="order-2 col-span-6 flex flex-row-reverse gap-4 sm:order-1 sm:col-span-9 sm:flex-col">
+    <motion.div
+      variants={stagger}
+      initial="hidden"
+      animate="show"
+      className="grid grid-cols-6 gap-4 p-2 py-5 sm:h-[85svh] sm:grid-cols-20 sm:gap-6"
+    >
+      <motion.div
+        variants={fadeUp}
+        className="order-2 col-span-6 flex flex-row-reverse gap-4 sm:order-1 sm:col-span-9 sm:flex-col"
+      >
         <div className="flex items-end justify-center rounded-2xl bg-[#EED1E3] sm:grow">
           <img
             src="totoro.png"
@@ -17,7 +37,7 @@ export default function Home() {
         <div className="flex grow flex-col justify-between gap-4 sm:grow-0 sm:flex-row">
           <Link
             href={SOCIALS.instagram}
-            className="dark:bg-secondary flex aspect-square h-auto w-full items-center justify-center rounded-2xl bg-[#FBFBFB]"
+            className="dark:bg-secondary flex aspect-square h-auto w-full items-center justify-center rounded-2xl bg-[#FBFBFB] transition-all duration-200 hover:-translate-y-1 hover:scale-105 hover:shadow-lg"
           >
             <img
               src="icons/insta.svg"
@@ -32,7 +52,7 @@ export default function Home() {
           </Link>
           <Link
             href={SOCIALS.behance}
-            className="dark:bg-secondary flex aspect-square h-auto w-full items-center justify-center rounded-2xl bg-[#FBFBFB]"
+            className="dark:bg-secondary flex aspect-square h-auto w-full items-center justify-center rounded-2xl bg-[#FBFBFB] transition-all duration-200 hover:-translate-y-1 hover:scale-105 hover:shadow-lg"
           >
             <img
               src="icons/behance.svg"
@@ -47,7 +67,7 @@ export default function Home() {
           </Link>
           <Link
             href={SOCIALS.discord}
-            className="dark:bg-secondary flex aspect-square h-auto w-full items-center justify-center rounded-2xl bg-[#FBFBFB]"
+            className="dark:bg-secondary flex aspect-square h-auto w-full items-center justify-center rounded-2xl bg-[#FBFBFB] transition-all duration-200 hover:-translate-y-1 hover:scale-105 hover:shadow-lg"
           >
             <img
               src="icons/discord.svg"
@@ -61,14 +81,17 @@ export default function Home() {
             />
           </Link>
         </div>
-      </div>
-      <div className="relative order-1 col-span-6 h-[30svh] sm:order-2 sm:col-span-11 sm:h-auto">
+      </motion.div>
+      <motion.div
+        variants={fadeUp}
+        className="relative order-1 col-span-6 h-[30svh] overflow-hidden sm:order-2 sm:col-span-11 sm:h-auto"
+      >
         <Image
           priority
           fill
           src="/hero/poster2.png"
           alt="Description"
-          className="rounded-2xl object-cover opacity-90"
+          className="animate-ken-burns rounded-2xl object-cover opacity-90"
         />
         <div className="absolute inset-x-0 bottom-0 hidden flex-col gap-8 rounded-b-xl bg-black/40 pt-5 pr-10 pb-10 text-end text-white sm:flex">
           <h3 className="text-4xl font-semibold">
@@ -82,8 +105,11 @@ export default function Home() {
             innovation, and visual storytelling
           </p>
         </div>
-      </div>
-      <div className="text-secondary-foreground order-3 col-span-6 h-fit sm:hidden">
+      </motion.div>
+      <motion.div
+        variants={fadeUp}
+        className="text-secondary-foreground order-3 col-span-6 h-fit sm:hidden"
+      >
         <div className="flex flex-col gap-4">
           <h3 className="text-3xl font-semibold">
             Transforming Ideas Into Stunning Designs
@@ -94,7 +120,7 @@ export default function Home() {
             storytelling
           </p>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

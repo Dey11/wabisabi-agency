@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import { SOCIALS } from "@/lib/constants";
 import { flushSync } from "react-dom";
 import { cn } from "@/lib/utils";
+import { motion } from "motion/react";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -91,16 +92,23 @@ export default function Header() {
       <nav className="mt-4">
         <ul className="flex items-center gap-10 text-2xl">
           {navItems.map((item) => (
-            <li key={item.name} className="hidden lg:block">
+            <li key={item.name} className="relative hidden lg:block">
               <Link
                 href={item.href}
                 className={`${
                   currentTab === item.href
                     ? "font-medium"
                     : "text-gray-700 dark:text-white"
-                } dark:hover:text-foreground/80 hover:text-gray-900`}
+                } dark:hover:text-foreground/80 relative px-1 py-1 hover:text-gray-900`}
               >
                 {item.name}
+                {currentTab === item.href && (
+                  <motion.div
+                    layoutId="nav-indicator"
+                    className="bg-foreground absolute -bottom-1 left-0 h-0.5 w-full rounded-full"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
               </Link>
             </li>
           ))}

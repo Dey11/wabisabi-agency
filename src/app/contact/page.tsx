@@ -1,7 +1,11 @@
+"use client";
+
 import { SOCIALS } from "@/lib/constants";
 import { Allura } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "motion/react";
+import { AnimatedCounter } from "@/components/animated-counter";
 
 const allura = Allura({
   subsets: ["latin"],
@@ -13,7 +17,9 @@ export default function ContactPage() {
     <div className="grid grid-cols-10 gap-6 p-2 pb-5 lg:h-[90svh] lg:grid-cols-20">
       <div className="col-span-10 flex flex-col justify-between pt-10">
         <div className="flex flex-col gap-2">
-          <p>104</p>
+          <p>
+            <AnimatedCounter value={104} />
+          </p>
           <h1 className="text-2xl font-semibold">Let's meet our Founder</h1>
         </div>
 
@@ -35,7 +41,7 @@ export default function ContactPage() {
 
           <div className="flex gap-4">
             <Link href={SOCIALS.discord}>
-              <div className="relative flex size-36 flex-col justify-end overflow-hidden rounded-3xl bg-[#B7D4FF] p-4">
+              <div className="relative flex size-36 flex-col justify-end overflow-hidden rounded-3xl bg-[#B7D4FF] p-4 transition-all duration-200 hover:-translate-y-1 hover:scale-105 hover:shadow-lg">
                 <img
                   src="/contact/discord.svg"
                   alt="discord"
@@ -45,7 +51,7 @@ export default function ContactPage() {
               </div>
             </Link>
             <Link href={SOCIALS.instagram}>
-              <div className="relative flex size-36 flex-col justify-end overflow-hidden rounded-3xl bg-[#FFA9ED] p-4">
+              <div className="relative flex size-36 flex-col justify-end overflow-hidden rounded-3xl bg-[#FFA9ED] p-4 transition-all duration-200 hover:-translate-y-1 hover:scale-105 hover:shadow-lg">
                 <img
                   src="/contact/instagram.svg"
                   alt="instagram"
@@ -55,7 +61,7 @@ export default function ContactPage() {
               </div>
             </Link>
             <Link href={SOCIALS.behance}>
-              <div className="relative flex size-36 flex-col justify-end overflow-hidden rounded-3xl bg-[#C7D7FF] p-4">
+              <div className="relative flex size-36 flex-col justify-end overflow-hidden rounded-3xl bg-[#C7D7FF] p-4 transition-all duration-200 hover:-translate-y-1 hover:scale-105 hover:shadow-lg">
                 <img
                   src="/contact/behance.svg"
                   alt="behance"
@@ -88,7 +94,13 @@ export default function ContactPage() {
         />
       </div>
 
-      <div className="col-span-10 flex flex-col gap-2 lg:hidden">
+      <motion.div
+        className="col-span-10 flex flex-col gap-2 lg:hidden"
+        initial={{ opacity: 0, y: 15 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+      >
         <h2
           className={`${allura.className} text-secondary-foreground text-5xl leading-relaxed font-bold`}
         >
@@ -107,7 +119,7 @@ export default function ContactPage() {
 
           <div className="flex gap-4">
             <Link href={SOCIALS.discord}>
-              <div className="relative flex size-20 flex-col justify-end overflow-hidden rounded-2xl bg-[#B7D4FF] p-4">
+              <div className="relative flex size-20 flex-col justify-end overflow-hidden rounded-2xl bg-[#B7D4FF] p-4 transition-all duration-200 hover:-translate-y-1 hover:scale-105 hover:shadow-lg">
                 <img
                   src="/contact/discord.svg"
                   alt="discord"
@@ -117,7 +129,7 @@ export default function ContactPage() {
               </div>
             </Link>
             <Link href={SOCIALS.instagram}>
-              <div className="relative flex size-20 flex-col justify-end overflow-hidden rounded-2xl bg-[#FFA9ED] p-4">
+              <div className="relative flex size-20 flex-col justify-end overflow-hidden rounded-2xl bg-[#FFA9ED] p-4 transition-all duration-200 hover:-translate-y-1 hover:scale-105 hover:shadow-lg">
                 <img
                   src="/contact/instagram.svg"
                   alt="instagram"
@@ -127,7 +139,7 @@ export default function ContactPage() {
               </div>
             </Link>
             <Link href={SOCIALS.behance}>
-              <div className="relative flex size-20 flex-col justify-end overflow-hidden rounded-2xl bg-[#C7D7FF] p-4">
+              <div className="relative flex size-20 flex-col justify-end overflow-hidden rounded-2xl bg-[#C7D7FF] p-4 transition-all duration-200 hover:-translate-y-1 hover:scale-105 hover:shadow-lg">
                 <img
                   src="/contact/behance.svg"
                   alt="behance"
@@ -138,7 +150,7 @@ export default function ContactPage() {
             </Link>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
