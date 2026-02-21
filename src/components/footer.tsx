@@ -35,7 +35,8 @@ export function Footer() {
           </Link>
         </div>
         <p className="text-secondary-foreground text-xs">
-          &copy; {new Date().getFullYear()} Wabi Sabi. All rights reserved.
+          &copy; 2020&ndash;{new Date().getFullYear()} Wabi Sabi. All rights
+          reserved.
         </p>
       </div>
     </motion.footer>
