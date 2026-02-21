@@ -5,6 +5,7 @@ export const BANNERS = [
       "https://res.cloudinary.com/dko5nf8tr/image/upload/v1761653364/8_bd3je9.png",
     alt: "Wasabi Commission Banner",
   },
+
   {
     id: 1,
     image:
