@@ -2,6 +2,7 @@
 
 import { Dices } from "lucide-react";
 import { useState, useCallback } from "react";
+import { motion } from "motion/react";
 
 type FeedbackBoxProps = {
   author: string;
@@ -19,13 +20,26 @@ export function FeedbacksClient({
   allFeedbacks,
 }: FeedbacksClientProps) {
   const [visibleFeedbacks, setVisibleFeedbacks] = useState(initialFeedbacks);
+  const [rollKey, setRollKey] = useState(0);
 
   const handleShuffle = useCallback(() => {
+    setRollKey((prev) => prev + 1);
     const shuffled = [...allFeedbacks]
       .sort(() => Math.random() - 0.5)
       .slice(0, 4);
     setVisibleFeedbacks(shuffled);
   }, [allFeedbacks]);
+
+  const diceAnimation = {
+    rotate: [0, -20, 180, 340, 360],
+    y: [0, -6, 0, -3, 0],
+    scale: [1, 1.2, 1.1, 1.15, 1],
+  };
+
+  const diceTransition = {
+    duration: 0.6,
+    ease: [0.22, 1, 0.36, 1] as const,
+  };
 
   return (
     <div className="grid grid-cols-8 gap-6 p-2 pb-5 lg:grid-cols-20">
@@ -46,7 +60,15 @@ export function FeedbacksClient({
             onClick={handleShuffle}
             className="hover:bg-accent flex w-fit items-center gap-2 rounded-full border-2 px-5 py-2 font-medium transition-colors"
           >
-            Let's shuffle <Dices className="size-5" />
+            Let&apos;s shuffle{" "}
+            <motion.span
+              key={rollKey}
+              animate={diceAnimation}
+              transition={diceTransition}
+              className="inline-flex"
+            >
+              <Dices className="size-5" />
+            </motion.span>
           </button>
         </div>
       </div>
@@ -71,7 +93,15 @@ export function FeedbacksClient({
           onClick={handleShuffle}
           className="hover:bg-accent mt-2 flex w-fit items-center gap-2 rounded-full border-2 px-3 py-1 font-medium transition-colors"
         >
-          Let's shuffle <Dices className="size-5" />
+          Let&apos;s shuffle{" "}
+          <motion.span
+            key={rollKey}
+            animate={diceAnimation}
+            transition={diceTransition}
+            className="inline-flex"
+          >
+            <Dices className="size-5" />
+          </motion.span>
         </button>
       </div>
     </div>
