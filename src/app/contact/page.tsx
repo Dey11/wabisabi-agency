@@ -24,7 +24,7 @@ export default function ContactPage() {
         </h2>
 
         <p className="hidden text-[3svh] lg:block">
-          With over 5 years of experience, our agency has grown into a trusted
+          With over 6 years of experience, our agency has grown into a trusted
           partner for brands seeking exceptional design solutions.
         </p>
 
@@ -96,7 +96,7 @@ export default function ContactPage() {
         </h2>
 
         <p className="">
-          With over 5 years of experience, our agency has grown into a trusted
+          With over 6 years of experience, our agency has grown into a trusted
           partner for brands seeking exceptional design solutions.
         </p>
 
