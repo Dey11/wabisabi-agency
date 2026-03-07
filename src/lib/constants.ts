@@ -39,6 +39,7 @@ export const BANNERS = [
     id: 6,
     image:
       "https://res.cloudinary.com/dko5nf8tr/image/upload/v1747660547/DEVIOUS_NETWORK_SERVER_BANNER_tcbmoi.png",
+
     alt: "Devious Network Server Banner",
   },
   {
