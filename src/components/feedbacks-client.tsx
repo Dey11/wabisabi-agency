@@ -112,7 +112,7 @@ export function FeedbacksClient({
         </AnimatePresence>
       </div>
       <motion.div
-        className="text-secondary-foreground col-span-8 flex-col gap-8 lg:hidden"
+        className="text-secondary-foreground col-span-8 flex flex-col gap-8 lg:hidden"
         initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -158,3 +158,4 @@ function FeedbackBox({ author, content, where }: FeedbackBoxProps) {
     </div>
   );
 }
+

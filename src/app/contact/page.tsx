@@ -20,7 +20,7 @@ export default function ContactPage() {
           <p>
             <AnimatedCounter value={104} />
           </p>
-          <h1 className="text-2xl font-semibold">Let's meet our Founder</h1>
+          <h1 className="text-2xl font-semibold">Let&apos;s meet our Founder</h1>
         </div>
 
         <h2
@@ -83,14 +83,14 @@ export default function ContactPage() {
           className="mx-auto rounded-3xl object-cover lg:absolute lg:inset-x-0 lg:mx-auto lg:mt-20 lg:rounded-b-none"
         />
       </div>
-      <div className="relative col-span-10 flex justify-end overflow-hidden px-10 lg:hidden">
+      <div className="relative col-span-10 flex justify-center overflow-hidden lg:hidden">
         <Image
           src="/rudrakshpic.jpg"
           alt="rudraksh"
-          width={380}
-          height={200}
+          width={760}
+          height={400}
           priority
-          className="mx-auto rounded-t-3xl rounded-b-3xl object-cover lg:absolute lg:-bottom-1/4 lg:mx-0 lg:rounded-b-none"
+          className="h-auto w-full max-w-[380px] rounded-3xl object-cover"
         />
       </div>
 
@@ -107,7 +107,7 @@ export default function ContactPage() {
           Rudraksh Roy
         </h2>
 
-        <p className="">
+        <p>
           With over 6 years of experience, our agency has grown into a trusted
           partner for brands seeking exceptional design solutions.
         </p>
@@ -117,7 +117,7 @@ export default function ContactPage() {
             Follow us on
           </h3>
 
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-4">
             <Link href={SOCIALS.discord}>
               <div className="relative flex size-20 flex-col justify-end overflow-hidden rounded-2xl bg-[#B7D4FF] p-4 transition-all duration-200 hover:-translate-y-1 hover:scale-105 hover:shadow-lg">
                 <img

@@ -51,8 +51,8 @@ export default function ServicesPage() {
 
   return (
     <>
-      <div className="grid h-[90lvh] grid-cols-10 gap-6 p-2 pb-5 lg:grid-cols-20">
-        <div className="col-span-10 flex flex-col justify-between pt-10 lg:col-span-8 lg:pb-10">
+      <div className="grid grid-cols-10 gap-6 p-2 pb-5 lg:h-[90lvh] lg:grid-cols-20">
+        <div className="col-span-10 flex flex-col justify-between pt-6 lg:col-span-8 lg:pt-10 lg:pb-10">
           <div className="flex flex-col gap-2">
             <p>
               <AnimatedCounter value={101} />
@@ -63,7 +63,7 @@ export default function ServicesPage() {
           <h2 className="text-secondary-foreground hidden text-2xl leading-relaxed lg:block">
             Creative Solutions <br />
             <span className="font-semibold">
-              Tailored To Your <br /> Brand's Vision
+              Tailored To Your <br /> Brand&apos;s Vision
             </span>
           </h2>
           <div className="hidden items-center gap-3 text-2xl font-semibold lg:flex">
@@ -84,7 +84,7 @@ export default function ServicesPage() {
           </div>
         </div>
 
-        <div className="text-secondary-foreground col-span-10 flex flex-col overflow-clip lg:col-span-12 lg:pt-10 lg:pl-10">
+        <div className="text-secondary-foreground col-span-10 flex flex-col overflow-visible lg:col-span-12 lg:overflow-clip lg:pt-10 lg:pl-10">
           <div className="mb-5 flex w-full flex-wrap items-center gap-3 sm:gap-5 lg:justify-end">
             {services.map((service, idx) => {
               const serviceType = service
@@ -147,67 +147,73 @@ export default function ServicesPage() {
               </div>
             )}
           </motion.div>
-          <motion.div
-            animate={{ x: `-${currIdx * 43}lvh` }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="flex items-center gap-5 rounded-3xl lg:hidden"
-          >
+
+          <div className="lg:hidden">
             {currentPosters.length > 0 ? (
-              currentPosters.map((poster) => (
-                <div
-                  className="relative aspect-square h-[40lvh] rounded-3xl bg-cover bg-center"
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={`${currService}-${currIdx}`}
+                  initial={{ opacity: 0, x: 18 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -18 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                  className="relative mx-auto aspect-square w-full max-w-[420px] rounded-3xl bg-cover bg-center"
                   style={{
-                    backgroundImage: `url(${poster.src})`,
+                    backgroundImage: `url(${currentPosters[currIdx].src})`,
                   }}
-                  key={poster.id}
                 >
-                  <div className="group absolute inset-0 z-10 rounded-3xl bg-gradient-to-b from-transparent from-30% to-black to-180% transition-colors delay-100">
+                  <div className="absolute inset-0 z-10 rounded-3xl bg-gradient-to-b from-transparent from-30% to-black to-180%">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        setLightboxSrc(poster.src);
+                        setLightboxSrc(currentPosters[currIdx].src);
                       }}
-                      className="absolute top-5 right-5 cursor-pointer"
+                      className="absolute top-4 right-4 cursor-pointer"
                       aria-label="View fullscreen"
                     >
                       <MoveUpRight className="size-8 rounded-full border border-white bg-white p-2 transition-all delay-100" />
                     </button>
-                    <div className="absolute bottom-0 max-w-sm rounded-3xl p-5 text-white transition-all delay-100">
-                      <p className="font-bold">{poster.title}</p>
-                      <p className="font-bold">{poster.type}</p>
-                      <p>{poster.description}</p>
+                    <div className="absolute bottom-0 w-full rounded-3xl p-4 text-white sm:p-5">
+                      <p className="truncate font-bold">
+                        {currentPosters[currIdx].title}
+                      </p>
+                      <p className="font-bold">{currentPosters[currIdx].type}</p>
+                      <p className="text-sm">{currentPosters[currIdx].description}</p>
                     </div>
                   </div>
-                </div>
-              ))
+                </motion.div>
+              </AnimatePresence>
             ) : (
               <div className="flex h-[40lvh] items-center justify-center lg:h-[60lvh]">
                 <p>No images available for this service</p>
               </div>
             )}
-          </motion.div>
+          </div>
         </div>
+
         <div className="col-span-10 flex items-center justify-end gap-5 text-2xl font-semibold lg:hidden">
           <button
             onClick={handlePrev}
-            className="dark:bg-secondary dark:hover:bg-secondary/70 cursor-pointer rounded-2xl bg-[#FDF2F0] px-4 py-2 hover:bg-[#FDF2F0]/70"
+            disabled={currIdx === 0}
+            className="dark:bg-secondary dark:hover:bg-secondary/70 cursor-pointer rounded-2xl bg-[#FDF2F0] px-4 py-2 hover:bg-[#FDF2F0]/70 disabled:cursor-not-allowed disabled:opacity-40"
           >
             {"<"}
           </button>
           <button
             onClick={handleNext}
-            className="dark:bg-secondary dark:hover:bg-secondary/70 cursor-pointer rounded-2xl bg-[#FDF2F0] px-4 py-2 hover:bg-[#FDF2F0]/70"
+            disabled={currIdx === currentPosters.length - 1}
+            className="dark:bg-secondary dark:hover:bg-secondary/70 cursor-pointer rounded-2xl bg-[#FDF2F0] px-4 py-2 hover:bg-[#FDF2F0]/70 disabled:cursor-not-allowed disabled:opacity-40"
           >
             {">"}
           </button>
         </div>
 
-        <div className="col-span-10 pb-5">
-          <h2 className="text-secondary-foreground text-lg leading-relaxed lg:hidden">
+        <div className="col-span-10">
+          <h2 className="text-secondary-foreground text-base leading-relaxed lg:hidden">
             Creative Solutions
             <span className="font-semibold">
               {" "}
-              Tailored To Your Brand's Vision
+              Tailored To Your Brand&apos;s Vision
             </span>
           </h2>
         </div>

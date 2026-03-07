@@ -24,29 +24,29 @@ export default function Home() {
     >
       <motion.div
         variants={fadeUp}
-        className="order-2 col-span-6 flex flex-row-reverse gap-4 sm:order-1 sm:col-span-9 sm:flex-col"
+        className="order-2 col-span-6 flex flex-col gap-4 sm:order-1 sm:col-span-9 sm:flex-col"
       >
-        <div className="flex items-end justify-center rounded-2xl bg-[#EED1E3] sm:grow">
+        <div className="flex min-h-[46vw] items-end justify-center rounded-2xl bg-[#EED1E3] sm:min-h-0 sm:grow">
           <img
-            src="totoro.png"
+            src="/totoro.png"
             alt="Totoro"
-            className="size-[60svw] rounded-2xl sm:size-[25svw] sm:rounded-none"
+            className="h-auto w-full max-w-[260px] rounded-2xl sm:size-[25svw] sm:max-w-none sm:rounded-none"
           />
         </div>
 
-        <div className="flex grow flex-col justify-between gap-4 sm:grow-0 sm:flex-row">
+        <div className="grid grid-cols-3 gap-4 sm:flex sm:grow-0 sm:flex-row">
           <Link
             href={SOCIALS.instagram}
             className="dark:bg-secondary flex aspect-square h-auto w-full items-center justify-center rounded-2xl bg-[#FBFBFB] transition-all duration-200 hover:-translate-y-1 hover:scale-105 hover:shadow-lg"
           >
             <img
-              src="icons/insta.svg"
-              className="size-10 dark:hidden"
+              src="/icons/insta.svg"
+              className="size-8 sm:size-10 dark:hidden"
               alt="Instagram"
             />
             <img
-              src="icons/dark/insta.svg"
-              className="hidden size-10 dark:block"
+              src="/icons/dark/insta.svg"
+              className="hidden size-8 sm:size-10 dark:block"
               alt="Instagram"
             />
           </Link>
@@ -55,14 +55,14 @@ export default function Home() {
             className="dark:bg-secondary flex aspect-square h-auto w-full items-center justify-center rounded-2xl bg-[#FBFBFB] transition-all duration-200 hover:-translate-y-1 hover:scale-105 hover:shadow-lg"
           >
             <img
-              src="icons/behance.svg"
-              className="size-10 dark:hidden"
-              alt="Instagram"
+              src="/icons/behance.svg"
+              className="size-8 sm:size-10 dark:hidden"
+              alt="Behance"
             />
             <img
-              src="icons/dark/behance.svg"
-              className="hidden size-10 dark:block"
-              alt="Instagram"
+              src="/icons/dark/behance.svg"
+              className="hidden size-8 sm:size-10 dark:block"
+              alt="Behance"
             />
           </Link>
           <Link
@@ -70,14 +70,14 @@ export default function Home() {
             className="dark:bg-secondary flex aspect-square h-auto w-full items-center justify-center rounded-2xl bg-[#FBFBFB] transition-all duration-200 hover:-translate-y-1 hover:scale-105 hover:shadow-lg"
           >
             <img
-              src="icons/discord.svg"
-              className="size-10 dark:hidden"
-              alt="Instagram"
+              src="/icons/discord.svg"
+              className="size-8 sm:size-10 dark:hidden"
+              alt="Discord"
             />
             <img
-              src="icons/dark/discord.svg"
-              className="hidden size-10 dark:block"
-              alt="Instagram"
+              src="/icons/dark/discord.svg"
+              className="hidden size-8 sm:size-10 dark:block"
+              alt="Discord"
             />
           </Link>
         </div>

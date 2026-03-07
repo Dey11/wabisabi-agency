@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUp, Moon, PhoneCall, Sun, User } from "lucide-react";
+import { ArrowUp, Moon, PhoneCall, Sun } from "lucide-react";
 import { DM_Sans } from "next/font/google";
 import MobileMenu from "./mobile-menu";
 import Link from "next/link";
@@ -38,11 +38,23 @@ export default function Header() {
 
   const toggleTheme = async () => {
     if (!ref.current) return;
-    await document.startViewTransition(() => {
-      flushSync(() => {
-        setIsDark(!isDark);
-      });
-    }).ready;
+
+    const doc = document as Document & {
+      startViewTransition?: (cb: () => void) => ViewTransition;
+    };
+
+    if (!doc.startViewTransition) {
+      setIsDark((prev) => !prev);
+      return;
+    }
+
+    await doc
+      .startViewTransition(() => {
+        flushSync(() => {
+          setIsDark((prev) => !prev);
+        });
+      })
+      .ready;
 
     const { top, left } = ref.current.getBoundingClientRect();
     const x = left;
@@ -89,8 +101,8 @@ export default function Header() {
         </div>
       </Link>
 
-      <nav className="mt-4">
-        <ul className="flex items-center gap-10 text-2xl">
+      <nav className="mt-1 lg:mt-4">
+        <ul className="flex items-center gap-2 text-2xl sm:gap-3 lg:gap-10">
           {navItems.map((item) => (
             <li key={item.name} className="relative hidden lg:block">
               <Link
@@ -114,9 +126,9 @@ export default function Header() {
           ))}
           <div className="flex items-center gap-2">
             <Link href={SOCIALS.discord}>
-              <button className="group flex cursor-pointer items-center gap-1 rounded-full border-2 px-4 py-2 text-xs lg:py-1 lg:text-xl dark:border-white dark:text-white">
+              <button className="group flex cursor-pointer items-center gap-1 whitespace-nowrap rounded-full border-2 px-2.5 py-1.5 text-[10px] min-[360px]:text-xs sm:px-4 sm:py-2 lg:py-1 lg:text-xl dark:border-white dark:text-white">
                 <span>Purchase Plan</span>
-                <ArrowUp className="size-5 rotate-45 transition-all group-hover:rotate-90" />
+                <ArrowUp className="size-4 min-[360px]:size-5 rotate-45 transition-all group-hover:rotate-90" />
               </button>
             </Link>
             <Link href="/contact">
