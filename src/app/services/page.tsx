@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { MoveUpRight, X } from "lucide-react";
 import { getCurrentPosters, ServiceType, services } from "@/lib/utils";
@@ -11,8 +11,44 @@ export default function ServicesPage() {
   const [currService, setCurrService] = useState<ServiceType["type"]>("banner");
   const currentPosters = getCurrentPosters(currService);
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+  const mobileCarouselRef = useRef<HTMLDivElement>(null);
+  const desktopCarouselRef = useRef<HTMLDivElement>(null);
 
   const closeLightbox = useCallback(() => setLightboxSrc(null), []);
+
+  function scrollCarouselToIndex(
+    carousel: HTMLDivElement | null,
+    index: number,
+    behavior: ScrollBehavior = "smooth",
+  ) {
+    const slide = carousel?.children[index] as HTMLElement | undefined;
+    if (!carousel || !slide) return;
+
+    const carouselRect = carousel.getBoundingClientRect();
+    const slideRect = slide.getBoundingClientRect();
+    carousel.scrollTo({
+      left: carousel.scrollLeft + slideRect.left - carouselRect.left,
+      behavior,
+    });
+  }
+
+  function syncIndexFromScroll(carousel: HTMLDivElement) {
+    const carouselLeft = carousel.getBoundingClientRect().left;
+    let nearestIndex = 0;
+    let nearestDistance = Number.POSITIVE_INFINITY;
+
+    Array.from(carousel.children).forEach((slide, index) => {
+      const distance = Math.abs(
+        (slide as HTMLElement).getBoundingClientRect().left - carouselLeft,
+      );
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearestIndex = index;
+      }
+    });
+
+    if (nearestIndex !== currIdx) setCurrIdx(nearestIndex);
+  }
 
   useEffect(() => {
     if (!lightboxSrc) return;
@@ -31,11 +67,22 @@ export default function ServicesPage() {
   }, [lightboxSrc, closeLightbox]);
 
   function handleNext() {
-    setCurrIdx((prev) => Math.min(prev + 1, currentPosters.length - 1));
+    const nextIndex = Math.min(currIdx + 1, currentPosters.length - 1);
+    setCurrIdx(nextIndex);
+    scrollCarouselToIndex(mobileCarouselRef.current, nextIndex);
+    scrollCarouselToIndex(desktopCarouselRef.current, nextIndex);
   }
   function handlePrev() {
-    setCurrIdx((prev) => Math.max(prev - 1, 0));
+    const nextIndex = Math.max(currIdx - 1, 0);
+    setCurrIdx(nextIndex);
+    scrollCarouselToIndex(mobileCarouselRef.current, nextIndex);
+    scrollCarouselToIndex(desktopCarouselRef.current, nextIndex);
   }
+
+  useEffect(() => {
+    scrollCarouselToIndex(mobileCarouselRef.current, 0, "auto");
+    scrollCarouselToIndex(desktopCarouselRef.current, 0, "auto");
+  }, [currService]);
 
   useEffect(() => {
     if (lightboxSrc) return; // don't interfere with lightbox keys
@@ -47,7 +94,7 @@ export default function ServicesPage() {
 
     document.addEventListener("keydown", handleArrowKeys);
     return () => document.removeEventListener("keydown", handleArrowKeys);
-  }, [lightboxSrc, currentPosters.length]);
+  }, [lightboxSrc, currentPosters.length, currIdx]);
 
   return (
     <>
@@ -108,15 +155,15 @@ export default function ServicesPage() {
               );
             })}
           </div>
-          <motion.div
-            animate={{ x: `-${currIdx * 72}lvh` }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="hidden items-center gap-5 rounded-3xl lg:flex"
+          <div
+            ref={desktopCarouselRef}
+            className="hidden snap-x snap-mandatory items-center gap-5 overflow-x-auto overscroll-x-contain rounded-3xl scroll-smooth lg:flex lg:pb-3"
+            onScroll={(event) => syncIndexFromScroll(event.currentTarget)}
           >
             {currentPosters.length > 0 ? (
               currentPosters.map((poster) => (
                 <div
-                  className="relative aspect-square h-[70lvh] rounded-3xl bg-cover bg-center transition-all delay-75 duration-75 ease-in"
+                  className="relative aspect-square w-full max-w-[70lvh] shrink-0 snap-start rounded-3xl bg-cover bg-center transition-all delay-75 duration-75 ease-in"
                   style={{
                     backgroundImage: `url(${poster.src})`,
                   }}
@@ -146,43 +193,45 @@ export default function ServicesPage() {
                 <p>No images available for this service</p>
               </div>
             )}
-          </motion.div>
+          </div>
 
           <div className="lg:hidden">
             {currentPosters.length > 0 ? (
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={`${currService}-${currIdx}`}
-                  initial={{ opacity: 0, x: 18 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -18 }}
-                  transition={{ duration: 0.25, ease: "easeOut" }}
-                  className="relative mx-auto aspect-square w-full max-w-[420px] rounded-3xl bg-cover bg-center"
-                  style={{
-                    backgroundImage: `url(${currentPosters[currIdx].src})`,
-                  }}
-                >
-                  <div className="absolute inset-0 z-10 rounded-3xl bg-gradient-to-b from-transparent from-30% to-black to-180%">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setLightboxSrc(currentPosters[currIdx].src);
-                      }}
-                      className="absolute top-4 right-4 cursor-pointer"
-                      aria-label="View fullscreen"
+              <div
+                ref={mobileCarouselRef}
+                className="flex snap-x snap-mandatory overflow-x-auto scroll-smooth overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                onScroll={(event) => syncIndexFromScroll(event.currentTarget)}
+              >
+                {currentPosters.map((poster) => (
+                  <div
+                    key={poster.id}
+                    className="w-full shrink-0 snap-center"
+                  >
+                    <div
+                      className="relative mx-auto aspect-square w-full max-w-[420px] rounded-3xl bg-cover bg-center"
+                      style={{ backgroundImage: `url(${poster.src})` }}
                     >
-                      <MoveUpRight className="size-8 rounded-full border border-white bg-white p-2 transition-all delay-100" />
-                    </button>
-                    <div className="absolute bottom-0 w-full rounded-3xl p-4 text-white sm:p-5">
-                      <p className="truncate font-bold">
-                        {currentPosters[currIdx].title}
-                      </p>
-                      <p className="font-bold">{currentPosters[currIdx].type}</p>
-                      <p className="text-sm">{currentPosters[currIdx].description}</p>
+                      <div className="absolute inset-0 z-10 rounded-3xl bg-gradient-to-b from-transparent from-30% to-black to-180%">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setLightboxSrc(poster.src);
+                          }}
+                          className="absolute top-4 right-4 cursor-pointer"
+                          aria-label="View fullscreen"
+                        >
+                          <MoveUpRight className="size-8 rounded-full border border-white bg-white p-2 text-black transition-all delay-100" />
+                        </button>
+                        <div className="absolute bottom-0 w-full rounded-3xl p-4 text-white sm:p-5">
+                          <p className="truncate font-bold">{poster.title}</p>
+                          <p className="font-bold">{poster.type}</p>
+                          <p className="text-sm">{poster.description}</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </motion.div>
-              </AnimatePresence>
+                ))}
+              </div>
             ) : (
               <div className="flex h-[40lvh] items-center justify-center lg:h-[60lvh]">
                 <p>No images available for this service</p>
@@ -242,9 +291,9 @@ export default function ServicesPage() {
               src={lightboxSrc}
               alt="Fullscreen preview"
               className="max-h-[90vh] max-w-[90vw] rounded-2xl object-contain shadow-2xl"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
               onClick={(e) => e.stopPropagation()}
             />
