@@ -59,7 +59,7 @@ export function FeedbacksClient({
   };
 
   return (
-    <div className="grid grid-cols-8 gap-6 p-2 pb-5 lg:grid-cols-20">
+    <div className="grid grid-cols-8 gap-6 p-2 pb-5 lg:h-[90svh] lg:grid-cols-20">
       <div className="col-span-8 flex flex-col justify-between pt-10 lg:py-20">
         <div className="flex flex-col gap-2">
           <p>
@@ -92,11 +92,12 @@ export function FeedbacksClient({
         </div>
       </div>
 
-      <div className="text-secondary-foreground col-span-8 flex flex-col justify-center gap-4 sm:grid sm:grid-cols-2 lg:col-span-12 lg:gap-10 lg:p-10">
+      <div className="text-secondary-foreground col-span-8 flex flex-col justify-center gap-4 sm:grid sm:grid-cols-2 lg:col-span-12 lg:h-full lg:min-h-0 lg:grid-rows-2 lg:gap-10 lg:p-10">
         <AnimatePresence mode="wait">
           {visibleFeedbacks.map((feedback, idx) => (
             <motion.div
               key={`${shuffleKey}-${feedback.author}-${idx}`}
+              className="lg:min-h-0"
               custom={idx}
               variants={cardVariants}
               initial="hidden"
@@ -144,8 +145,10 @@ export function FeedbacksClient({
 
 function FeedbackBox({ author, content, where }: FeedbackBoxProps) {
   return (
-    <div className="border-foreground flex cursor-pointer flex-col justify-between gap-4 rounded-2xl border-2 p-4 transition-all duration-200 ease-in-out hover:-translate-y-1 hover:border hover:shadow-2xl lg:aspect-square">
-      <p className="line-clamp-[8] text-sm leading-relaxed">{content}</p>
+    <div className="border-foreground flex cursor-pointer flex-col justify-between gap-4 rounded-2xl border-2 p-4 transition-all duration-200 ease-in-out hover:-translate-y-1 hover:border hover:shadow-2xl lg:h-full lg:min-h-0">
+      <p className="line-clamp-[8] text-sm leading-relaxed lg:line-clamp-6 xl:line-clamp-[8]">
+        {content}
+      </p>
 
       <div className="flex items-center justify-end gap-2">
         <p className="font-semibold">@{author}</p>
@@ -158,4 +161,3 @@ function FeedbackBox({ author, content, where }: FeedbackBoxProps) {
     </div>
   );
 }
-
