@@ -84,7 +84,7 @@ export default function Home() {
       </motion.div>
       <motion.div
         variants={fadeUp}
-        className="relative order-1 col-span-6 h-[30svh] overflow-hidden sm:order-2 sm:col-span-11 sm:h-auto"
+        className="relative order-1 col-span-6 aspect-[4/3] overflow-hidden rounded-2xl sm:order-2 sm:col-span-11 sm:aspect-auto sm:h-auto"
       >
         <Image
           priority
