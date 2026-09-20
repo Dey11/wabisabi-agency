@@ -74,13 +74,13 @@ export default function ContactPage() {
         </div>
       </div>
 
-      <div className="relative col-span-10 mx-20 hidden justify-end overflow-hidden px-10 lg:flex lg:px-0 lg:pt-10">
+      <div className="relative col-span-10 mx-20 hidden justify-end overflow-hidden px-10 lg:flex lg:rounded-3xl lg:px-0 lg:pt-10">
         <Image
           src="/rudrakshpic.jpg"
           alt="rudraksh"
           fill
           priority
-          className="mx-auto rounded-3xl object-cover lg:absolute lg:inset-x-0 lg:mx-auto lg:mt-20 lg:rounded-b-none"
+          className="mx-auto rounded-3xl object-cover lg:absolute lg:inset-x-0 lg:mx-auto lg:mt-20"
         />
       </div>
       <div className="relative col-span-10 flex justify-center overflow-hidden lg:hidden">
