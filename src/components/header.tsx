@@ -18,23 +18,24 @@ const dmSans = DM_Sans({
 
 export default function Header() {
   const [currentTab, setCurrentTab] = useState<NavItem>(NavItem.Services);
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   const ref = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
-    setIsDark(savedTheme === "dark");
+    const shouldUseDark = savedTheme !== "light";
+
+    document.documentElement.classList.toggle("dark", shouldUseDark);
+    setIsDark(shouldUseDark);
+
+    if (savedTheme === null) localStorage.setItem("theme", "dark");
   }, []);
 
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [isDark]);
+  const applyTheme = (dark: boolean) => {
+    document.documentElement.classList.toggle("dark", dark);
+    localStorage.setItem("theme", dark ? "dark" : "light");
+    setIsDark(dark);
+  };
 
   const toggleTheme = async () => {
     if (!ref.current) return;
@@ -44,17 +45,15 @@ export default function Header() {
     };
 
     if (!doc.startViewTransition) {
-      setIsDark((prev) => !prev);
+      applyTheme(!isDark);
       return;
     }
 
-    await doc
-      .startViewTransition(() => {
-        flushSync(() => {
-          setIsDark((prev) => !prev);
-        });
-      })
-      .ready;
+    await doc.startViewTransition(() => {
+      flushSync(() => {
+        applyTheme(!isDark);
+      });
+    }).ready;
 
     const { top, left } = ref.current.getBoundingClientRect();
     const x = left;
