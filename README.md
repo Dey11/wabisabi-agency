@@ -2,7 +2,7 @@
 
 A modern, responsive website for a design agency built with cutting-edge technologies. This project showcases a beautiful and performant frontend implementation with a focus on user experience and design excellence.
 
-## 🚀 Features
+##  Features
 
 - **Modern Design**: Clean, minimalist interface with smooth animations and transitions
 - **Responsive Layout**: Fully responsive design that works seamlessly across all devices
@@ -10,7 +10,7 @@ A modern, responsive website for a design agency built with cutting-edge technol
 - **Type Safety**: Full TypeScript implementation for robust development
 - **Component Library**: Custom UI components built with shadcn/ui
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **Framework**: [Next.js 15](https://nextjs.org/) with App Router and Server Actions
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
@@ -20,7 +20,7 @@ A modern, responsive website for a design agency built with cutting-edge technol
 - **Code Quality**: Prettier
 - **Deployment**: [Vercel](https://vercel.com)
 
-## 📦 Project Structure
+##  Project Structure
 
 ```
 src/
@@ -35,7 +35,7 @@ src/
 └── lib/               # Utility functions and configurations
 ```
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -65,11 +65,11 @@ src/
 
 4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## 🏗️ Development
+##  Development
 
 - **Code Style**: The project uses Prettier for consistent code formatting
 
-## 🚧 Backend Development (Coming Soon)
+##  Backend Development (Coming Soon)
 
 The following features are currently under development:
 
@@ -78,6 +78,6 @@ The following features are currently under development:
 - Dynamic pricing
 - Admin dashboard
 
-## 👥 Contributing
+##  Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
