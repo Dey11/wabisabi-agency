@@ -157,7 +157,7 @@ export default function ServicesPage() {
           </div>
           <div
             ref={desktopCarouselRef}
-            className="hidden snap-x snap-mandatory items-center gap-5 overflow-x-auto overscroll-x-contain rounded-3xl scroll-smooth lg:flex lg:pb-3"
+            className="hidden snap-x snap-mandatory items-center gap-5 overflow-x-auto overscroll-x-contain rounded-3xl scroll-smooth [scrollbar-width:none] lg:flex [&::-webkit-scrollbar]:hidden"
             onScroll={(event) => syncIndexFromScroll(event.currentTarget)}
           >
             {currentPosters.length > 0 ? (
