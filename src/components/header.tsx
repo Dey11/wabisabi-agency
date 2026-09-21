@@ -19,7 +19,9 @@ const dmSans = DM_Sans({
 export default function Header() {
   const [currentTab, setCurrentTab] = useState<NavItem>(NavItem.Services);
   const [isDark, setIsDark] = useState(true);
+  const [isThemeTransitioning, setIsThemeTransitioning] = useState(false);
   const ref = useRef<HTMLButtonElement | null>(null);
+  const themeTransitionRef = useRef(false);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -38,44 +40,64 @@ export default function Header() {
   };
 
   const toggleTheme = async () => {
-    if (!ref.current) return;
+    const button = ref.current;
+    if (!button || themeTransitionRef.current) return;
+
+    const nextIsDark = !isDark;
 
     const doc = document as Document & {
       startViewTransition?: (cb: () => void) => ViewTransition;
     };
 
-    if (!doc.startViewTransition) {
-      applyTheme(!isDark);
+    if (!doc.startViewTransition || doc.visibilityState !== "visible") {
+      applyTheme(nextIsDark);
       return;
     }
 
-    await doc.startViewTransition(() => {
-      flushSync(() => {
-        applyTheme(!isDark);
+    themeTransitionRef.current = true;
+    setIsThemeTransitioning(true);
+
+    try {
+      const transition = doc.startViewTransition(() => {
+        flushSync(() => {
+          applyTheme(nextIsDark);
+        });
       });
-    }).ready;
 
-    const { top, left } = ref.current.getBoundingClientRect();
-    const x = left;
-    const y = top;
-    const right = window.innerWidth - left;
-    const bottom = window.innerHeight - top;
+      await transition.ready;
 
-    const maxRadius = Math.hypot(Math.max(left, right), Math.max(top, bottom));
+      const { top, left } = button.getBoundingClientRect();
+      const x = left;
+      const y = top;
+      const right = window.innerWidth - left;
+      const bottom = window.innerHeight - top;
 
-    document.documentElement.animate(
-      {
-        clipPath: [
-          `circle(0px at ${x}px ${y}px)`,
-          `circle(${maxRadius}px at ${x}px ${y}px)`,
-        ],
-      },
-      {
-        duration: 700,
-        easing: "ease-in-out",
-        pseudoElement: "::view-transition-new(root)",
-      },
-    );
+      const maxRadius = Math.hypot(
+        Math.max(left, right),
+        Math.max(top, bottom),
+      );
+
+      document.documentElement.animate(
+        {
+          clipPath: [
+            `circle(0px at ${x}px ${y}px)`,
+            `circle(${maxRadius}px at ${x}px ${y}px)`,
+          ],
+        },
+        {
+          duration: 700,
+          easing: "ease-in-out",
+          pseudoElement: "::view-transition-new(root)",
+        },
+      );
+
+      await transition.finished;
+    } catch {
+      applyTheme(nextIsDark);
+    } finally {
+      themeTransitionRef.current = false;
+      setIsThemeTransitioning(false);
+    }
   };
 
   const pathname = usePathname();
@@ -137,6 +159,7 @@ export default function Header() {
             </Link>
             <button
               onClick={toggleTheme}
+              disabled={isThemeTransitioning}
               className="relative size-9.5 cursor-pointer overflow-hidden rounded-full border-2 dark:border-white"
               ref={ref}
             >
