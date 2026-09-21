@@ -5,35 +5,27 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-enum NavItem {
-  Services = "/services",
-  Works = "/works",
-  Feedbacks = "/feedbacks",
-  Contact = "/contact",
-}
-
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
-  const [currentTab, setCurrentTab] = useState<NavItem>(NavItem.Services);
 
   const pathname = usePathname();
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    setCurrentTab(pathname as NavItem);
-  }, [pathname]);
 
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
-        <button className="relative size-10 rounded-full border-2 p-2 lg:hidden dark:border-white">
+        <button
+          aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+          className="relative size-10 rounded-full border-2 p-2 lg:hidden dark:border-white"
+        >
           <X
             className={cn(
               "absolute inset-0 m-auto size-5 transition-all duration-300 ease-in-out",
@@ -53,18 +45,33 @@ export default function MobileMenu() {
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-white dark:bg-[#212020]">
+        <DropdownMenuLabel className="text-foreground">
+          Services
+        </DropdownMenuLabel>
+        {serviceNavItems.map((item) => (
+          <DropdownMenuItem
+            key={item.href}
+            asChild
+            className={cn(
+              "cursor-pointer pl-4 text-gray-700 dark:text-white",
+              pathname === item.href && "bg-[#EBEBEB] dark:bg-black/20",
+            )}
+          >
+            <Link href={item.href}>{item.name}</Link>
+          </DropdownMenuItem>
+        ))}
+        <DropdownMenuSeparator />
         {navItems.map((item) => (
-          <Link href={item.href} key={item.name}>
-            <DropdownMenuItem
-              key={item.name}
-              className={cn(
-                "text-gray-700 dark:text-white",
-                currentTab === item.href && "bg-[#EBEBEB] dark:bg-black/20",
-              )}
-            >
-              {item.name}
-            </DropdownMenuItem>
-          </Link>
+          <DropdownMenuItem
+            key={item.href}
+            asChild
+            className={cn(
+              "cursor-pointer text-gray-700 dark:text-white",
+              pathname === item.href && "bg-[#EBEBEB] dark:bg-black/20",
+            )}
+          >
+            <Link href={item.href}>{item.name}</Link>
+          </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
@@ -72,10 +79,6 @@ export default function MobileMenu() {
 }
 
 const navItems = [
-  {
-    name: "Services",
-    href: "/services",
-  },
   {
     name: "Our Works",
     href: "/works",
@@ -87,5 +90,16 @@ const navItems = [
   {
     name: "Contact Us",
     href: "/contact",
+  },
+];
+
+const serviceNavItems = [
+  {
+    name: "Design",
+    href: "/services/design",
+  },
+  {
+    name: "Web Development",
+    href: "/services/web-development",
   },
 ];

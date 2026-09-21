@@ -6,7 +6,7 @@ import { MoveUpRight, X } from "lucide-react";
 import { getCurrentPosters, ServiceType, services } from "@/lib/utils";
 import { AnimatedCounter } from "@/components/animated-counter";
 
-export default function ServicesPage() {
+export default function DesignServicesPage() {
   const [currIdx, setCurrIdx] = useState(0);
   const [currService, setCurrService] = useState<ServiceType["type"]>("banner");
   const currentPosters = getCurrentPosters(currService);
@@ -157,7 +157,7 @@ export default function ServicesPage() {
           </div>
           <div
             ref={desktopCarouselRef}
-            className="hidden snap-x snap-mandatory items-center gap-5 overflow-x-auto overscroll-x-contain rounded-3xl scroll-smooth [scrollbar-width:none] lg:flex [&::-webkit-scrollbar]:hidden"
+            className="hidden snap-x snap-mandatory items-center gap-5 overflow-x-auto overscroll-x-contain scroll-smooth rounded-3xl [scrollbar-width:none] lg:flex [&::-webkit-scrollbar]:hidden"
             onScroll={(event) => syncIndexFromScroll(event.currentTarget)}
           >
             {currentPosters.length > 0 ? (
@@ -199,14 +199,11 @@ export default function ServicesPage() {
             {currentPosters.length > 0 ? (
               <div
                 ref={mobileCarouselRef}
-                className="flex snap-x snap-mandatory overflow-x-auto scroll-smooth overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                 onScroll={(event) => syncIndexFromScroll(event.currentTarget)}
               >
                 {currentPosters.map((poster) => (
-                  <div
-                    key={poster.id}
-                    className="w-full shrink-0 snap-center"
-                  >
+                  <div key={poster.id} className="w-full shrink-0 snap-center">
                     <div
                       className="relative mx-auto aspect-square w-full max-w-[420px] rounded-3xl bg-cover bg-center"
                       style={{ backgroundImage: `url(${poster.src})` }}
