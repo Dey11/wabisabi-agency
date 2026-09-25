@@ -138,7 +138,7 @@ export default function Header() {
                 <button
                   type="button"
                   className={cn(
-                    "group dark:hover:text-foreground/80 relative flex cursor-pointer items-center gap-2 px-1 py-1 hover:text-gray-900",
+                    "group dark:hover:text-foreground/80 relative flex cursor-pointer items-center gap-2 px-1 py-1 outline-none hover:text-gray-900",
                     servicesActive
                       ? "text-foreground font-medium"
                       : "text-gray-700 dark:text-white",
