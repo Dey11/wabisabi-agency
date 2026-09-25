@@ -48,60 +48,67 @@ export default function Header() {
   };
 
   const toggleTheme = async () => {
-    const button = ref.current;
-    if (!button || themeTransitionRef.current) return;
-
-    const nextIsDark = !isDark;
+    if (!ref.current || themeTransitionRef.current) return;
 
     const doc = document as Document & {
       startViewTransition?: (cb: () => void) => ViewTransition;
+      activeViewTransition?: ViewTransition | null;
     };
-
-    if (!doc.startViewTransition || doc.visibilityState !== "visible") {
-      applyTheme(nextIsDark);
-      return;
-    }
 
     themeTransitionRef.current = true;
     setIsThemeTransitioning(true);
 
     try {
+      await doc.activeViewTransition?.finished.catch(() => undefined);
+
+      const button = ref.current;
+      if (!button) return;
+
+      const nextIsDark = !doc.documentElement.classList.contains("dark");
+
+      if (!doc.startViewTransition || doc.visibilityState !== "visible") {
+        applyTheme(nextIsDark);
+        return;
+      }
+
+      let themeApplied = false;
       const transition = doc.startViewTransition(() => {
         flushSync(() => {
           applyTheme(nextIsDark);
+          themeApplied = true;
         });
       });
 
-      await transition.ready;
+      try {
+        await transition.ready;
 
-      const { top, left } = button.getBoundingClientRect();
-      const x = left;
-      const y = top;
-      const right = window.innerWidth - left;
-      const bottom = window.innerHeight - top;
+        const { top, left, width, height } = button.getBoundingClientRect();
+        const x = left + width / 2;
+        const y = top + height / 2;
+        const maxRadius = Math.hypot(
+          Math.max(x, window.innerWidth - x),
+          Math.max(y, window.innerHeight - y),
+        );
 
-      const maxRadius = Math.hypot(
-        Math.max(left, right),
-        Math.max(top, bottom),
-      );
+        const reveal = doc.documentElement.animate(
+          {
+            clipPath: [
+              `circle(0px at ${x}px ${y}px)`,
+              `circle(${maxRadius}px at ${x}px ${y}px)`,
+            ],
+          },
+          {
+            duration: 700,
+            easing: "ease-in-out",
+            pseudoElement: "::view-transition-new(root)",
+          },
+        );
 
-      document.documentElement.animate(
-        {
-          clipPath: [
-            `circle(0px at ${x}px ${y}px)`,
-            `circle(${maxRadius}px at ${x}px ${y}px)`,
-          ],
-        },
-        {
-          duration: 700,
-          easing: "ease-in-out",
-          pseudoElement: "::view-transition-new(root)",
-        },
-      );
-
-      await transition.finished;
-    } catch {
-      applyTheme(nextIsDark);
+        await Promise.allSettled([reveal.finished, transition.finished]);
+      } catch {
+        await transition.updateCallbackDone.catch(() => undefined);
+        if (!themeApplied) applyTheme(nextIsDark);
+      }
     } finally {
       themeTransitionRef.current = false;
       setIsThemeTransitioning(false);
